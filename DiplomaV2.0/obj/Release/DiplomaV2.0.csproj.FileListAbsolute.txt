@@ -1,0 +1,11 @@
+C:\Users\Mikl\documents\visual studio 2012\Projects\DiplomaV2.0\DiplomaV2.0\bin\Release\DiplomaV2.0.exe.config
+C:\Users\Mikl\documents\visual studio 2012\Projects\DiplomaV2.0\DiplomaV2.0\bin\Release\DiplomaV2.0.exe
+C:\Users\Mikl\documents\visual studio 2012\Projects\DiplomaV2.0\DiplomaV2.0\bin\Release\DiplomaV2.0.pdb
+C:\Users\Mikl\documents\visual studio 2012\Projects\DiplomaV2.0\DiplomaV2.0\obj\Release\DiplomaV2._0.CalculateProgressForm.resources
+C:\Users\Mikl\documents\visual studio 2012\Projects\DiplomaV2.0\DiplomaV2.0\obj\Release\DiplomaV2._0.Form1.resources
+C:\Users\Mikl\documents\visual studio 2012\Projects\DiplomaV2.0\DiplomaV2.0\obj\Release\DiplomaV2._0.HelpForm.resources
+C:\Users\Mikl\documents\visual studio 2012\Projects\DiplomaV2.0\DiplomaV2.0\obj\Release\DiplomaV2._0.PropertiesForm.resources
+C:\Users\Mikl\documents\visual studio 2012\Projects\DiplomaV2.0\DiplomaV2.0\obj\Release\DiplomaV2._0.Properties.Resources.resources
+C:\Users\Mikl\documents\visual studio 2012\Projects\DiplomaV2.0\DiplomaV2.0\obj\Release\DiplomaV2.0.csproj.GenerateResource.Cache
+C:\Users\Mikl\documents\visual studio 2012\Projects\DiplomaV2.0\DiplomaV2.0\obj\Release\DiplomaV2.0.exe
+C:\Users\Mikl\documents\visual studio 2012\Projects\DiplomaV2.0\DiplomaV2.0\obj\Release\DiplomaV2.0.pdb
