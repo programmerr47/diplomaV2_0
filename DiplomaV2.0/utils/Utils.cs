@@ -13,6 +13,7 @@ namespace DiplomaV2._0.utils
     public class Utils
     {
         public enum Calcs { LAGRANGE, LINEAR }
+        public enum Formats { VTK, CSV, PROPERTY}
 
         public static double[,] parseStrings(DataGridView dataBase, int start, int end)
         {

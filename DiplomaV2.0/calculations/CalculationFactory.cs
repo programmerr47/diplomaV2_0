@@ -20,6 +20,7 @@ namespace DiplomaV2._0.calculations
 
                 case Utils.Calcs.LINEAR :
                     return new LinearCalc();
+
                 default :
                     return null;
             }

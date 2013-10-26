@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using DiplomaV2._0.calculations;
 using DiplomaV2._0.exceptions;
 using DiplomaV2._0.utils;
+using DiplomaV2._0.files;
 
 namespace DiplomaV2._0
 {
@@ -22,8 +23,12 @@ namespace DiplomaV2._0
             InitializeComponent();
             saveFile.Filter = Constants.fileFilter;
             openFile.Filter = Constants.fileFilter;
-            FileUtils.readFromPropertyFile();
-            FileUtils.readFromFile(dataBaseGridA, dataBaseGridB);
+            IFileWorker worker;
+            worker = FileFactory.createWorker(Utils.Formats.CSV, this);
+            worker.readFromFile();
+            worker = FileFactory.createWorker(Utils.Formats.PROPERTY, this);
+            worker.readFromFile();
+
             if (utils.Properties.currentCalculateMethod.Equals(Utils.Calcs.LINEAR))
             {
                 linearFunctionsToolStripMenuItem.Checked = true;
@@ -98,7 +103,9 @@ namespace DiplomaV2._0
                 }
             }
 
-            FileUtils.writeInPropertyFile();
+            IFileWorker worker;
+            worker = FileFactory.createWorker(Utils.Formats.PROPERTY, this);
+            worker.writeInFile();
         }
 
         private void LoadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -118,8 +125,10 @@ namespace DiplomaV2._0
                 if (System.IO.File.Exists(openFile.FileName))
                 {
                     utils.Properties.currentPathToFile = openFile.FileName;
-                    FileUtils.parseFileName();
-                    FileUtils.readFromFile(dataBaseGridA, dataBaseGridB);
+                    IFileWorker worker;
+                    worker = FileFactory.createWorker(Utils.Formats.CSV, this);
+                    worker.parseFileName();
+                    worker.readFromFile();
                     setFormText();
                 }
             }
@@ -133,29 +142,33 @@ namespace DiplomaV2._0
         private void saveTable()
         {
             Directory.SetCurrentDirectory(utils.Properties.currentDirectory);
+            IFileWorker worker;
+            worker = FileFactory.createWorker(Utils.Formats.CSV, this);
 
             if (utils.Properties.currentPathToFile == "-")
             {
                 if (saveFile.ShowDialog() == DialogResult.OK)
                 {
                     utils.Properties.currentPathToFile = saveFile.FileName;
-                    FileUtils.parseFileName();
+                    worker.parseFileName();
                     setFormText();
                 }
             }
 
-            FileUtils.writeInFile(dataBaseGridA, dataBaseGridB);
+            worker.writeInFile();
         }
 
         private void сохранитьКакToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Directory.SetCurrentDirectory(utils.Properties.currentDirectory);
-                
+            IFileWorker worker;
+            worker = FileFactory.createWorker(Utils.Formats.CSV, this);
+
             if (saveFile.ShowDialog() == DialogResult.OK)    
             {
                 utils.Properties.currentPathToFile = saveFile.FileName;
-                FileUtils.parseFileName();
-                FileUtils.writeInFile(dataBaseGridA, dataBaseGridB);
+                worker.parseFileName();
+                worker.writeInFile();
                 setFormText();
             }
         }
