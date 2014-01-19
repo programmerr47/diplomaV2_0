@@ -235,7 +235,7 @@ namespace DiplomaV2._0
             {
                 Directory.SetCurrentDirectory(utils.Properties.currentDirectory);
             }
-            catch (DirectoryNotFoundException ex)
+            catch (Exception ex)
             {
             }
             IFileWorker worker;
