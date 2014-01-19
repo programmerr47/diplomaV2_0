@@ -51,8 +51,10 @@
       <DependentUpon>CalculateProgressForm.cs</DependentUpon>
     </Compile>
     <Compile Include="calculations\CalculationFactory.cs" />
+    <Compile Include="calculations\implementations\DiffPointsCalc.cs" />
     <Compile Include="calculations\implementations\LagrangeCalc.cs" />
     <Compile Include="calculations\implementations\LinearCalc.cs" />
+    <Compile Include="calculations\implementations\SpaceCalc.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="calculations\ICalculation.cs" />
     <Compile Include="exceptions\DataBaseException.cs" />

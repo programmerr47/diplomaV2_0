@@ -1,27 +1,26 @@
-﻿using System;
+﻿using DiplomaV2._0.utils;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using DiplomaV2._0.utils;
-
 namespace DiplomaV2._0.calculations.implementations
 {
-    class LagrangeCalc : DiffPointsCalc
+    class SpaceCalc : ICalculation
     {
-        private double[,] aPoints;
-        private double[,] bPoints;
+        double[,] aPoints;
+        double[,] bPoints;
 
-        public LagrangeCalc() {}
+        public SpaceCalc() { }
 
-        public override void calculate()
+        public void calculate()
         {
             aPoints = Database.getINSTANCE().getAPoints();
             bPoints = Database.getINSTANCE().getBPointsCoord();
-            double[,] result = new double[bPoints.GetLength(0), 3];
 
+            double[,] result = new double[bPoints.GetLength(0), 3];
             double progressStep = 25.0 / bPoints.GetLength(0);
             Stopwatch sw = new Stopwatch();
 
@@ -45,29 +44,9 @@ namespace DiplomaV2._0.calculations.implementations
             Database.getINSTANCE().setBPointsInd(result);
         }
 
-        private double calculateInduction(int coord, double value)
+        private double calculateInduction(int coord, double bCoord)
         {
-            double result = 0.0;
-
-            for (int i = 0; i < aPoints.GetLength(0); i++)
-            {
-                result += aPoints[i, coord + 3] * calculatePartInduction(coord, i, value);
-            }
-
-            return Math.Round(result, 3);
-        }
-
-        private double calculatePartInduction(int coord, int i, double value)
-        {
-            double result = 1.0;
-
-            for (int j = 0; j < aPoints.GetLength(0); j++)
-            {
-                if (i != j)
-                    result *= (value - aPoints[j, coord]) / (aPoints[i, coord] - aPoints[j, coord]);
-            }
-            
-            return result;
+            return 0;
         }
     }
 }

@@ -23,6 +23,7 @@ namespace DiplomaV2._0
             InitializeComponent();
             saveFile.Filter = Constants.fileFilter;
             openFile.Filter = Constants.fileFilter;
+            exportFile.Filter = Constants.exportFileFilter;
             IFileWorker worker;
             worker = FileFactory.createWorker(Utils.Formats.CSV, this);
             worker.readFromFile();
@@ -141,7 +142,13 @@ namespace DiplomaV2._0
 
         private void saveTable()
         {
-            Directory.SetCurrentDirectory(utils.Properties.currentDirectory);
+            try
+            {
+                Directory.SetCurrentDirectory(utils.Properties.currentDirectory);
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+            }
             IFileWorker worker;
             worker = FileFactory.createWorker(Utils.Formats.CSV, this);
 
@@ -220,6 +227,26 @@ namespace DiplomaV2._0
         {
             HelpForm hForm = new HelpForm();
             hForm.Show();
+        }
+
+        private void exportVtkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Directory.SetCurrentDirectory(utils.Properties.currentDirectory);
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+            }
+            IFileWorker worker;
+            worker = FileFactory.createWorker(Utils.Formats.VTK, this);
+
+            if (exportFile.ShowDialog() == DialogResult.OK)
+            {
+                utils.Properties.currentPathToFile = exportFile.FileName;
+                worker.parseFileName();
+                worker.writeInFile();
+            }
         }
     }
 }

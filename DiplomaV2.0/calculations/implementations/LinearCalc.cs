@@ -10,14 +10,12 @@ using DiplomaV2._0.utils;
 
 namespace DiplomaV2._0.calculations.implementations
 {
-    class LinearCalc : ICalculation
+    class LinearCalc : DiffPointsCalc
     {
         double[,] aPoints;
         double[,] bPoints;
 
-        public LinearCalc() 
-        {
-        }
+        public LinearCalc() {}
 
         public double calculateInduction(int coord, double bCoord) 
         {
@@ -94,7 +92,7 @@ namespace DiplomaV2._0.calculations.implementations
             }
         }
 
-        public void calculate()
+        public override void calculate()
         {
             aPoints = Database.getINSTANCE().getAPoints();
             bPoints = Database.getINSTANCE().getBPointsCoord();

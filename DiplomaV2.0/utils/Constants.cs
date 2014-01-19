@@ -16,6 +16,7 @@ namespace DiplomaV2._0.utils
         public const int B_Y = 4;
         public const int B_Z = 5;
         public const string fileFilter = "Tables(*.csv)|*.csv";
+        public const string exportFileFilter = "Paraview(*.vtk)|*.vtk";
         public const string tableSeparateLine = "NEXT";
 
         public static string DECIMAL_SEPARATOR = NumberFormatInfo.CurrentInfo.CurrencyDecimalSeparator;

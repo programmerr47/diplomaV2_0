@@ -40,6 +40,7 @@
             this.methodsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lagranghToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linearFunctionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.пространственныйМетодToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveCalcsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,6 +60,8 @@
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.exportVtkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportFile = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseGridA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseGridB)).BeginInit();
@@ -83,6 +86,7 @@
             this.LoadToolStripMenuItem,
             this.SaveToolStripMenuItem,
             this.сохранитьКакToolStripMenuItem,
+            this.exportVtkToolStripMenuItem,
             this.настройкиToolStripMenuItem,
             this.closeToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -144,7 +148,8 @@
             // 
             this.methodsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lagranghToolStripMenuItem,
-            this.linearFunctionsToolStripMenuItem});
+            this.linearFunctionsToolStripMenuItem,
+            this.пространственныйМетодToolStripMenuItem});
             this.methodsToolStripMenuItem.Name = "methodsToolStripMenuItem";
             this.methodsToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
             this.methodsToolStripMenuItem.Text = "Метод вычисления";
@@ -162,6 +167,12 @@
             this.linearFunctionsToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
             this.linearFunctionsToolStripMenuItem.Text = "Кусочно-линейные функции";
             this.linearFunctionsToolStripMenuItem.Click += new System.EventHandler(this.linearFunctionsToolStripMenuItem_Click);
+            // 
+            // пространственныйМетодToolStripMenuItem
+            // 
+            this.пространственныйМетодToolStripMenuItem.Name = "пространственныйМетодToolStripMenuItem";
+            this.пространственныйМетодToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.пространственныйМетодToolStripMenuItem.Text = "Пространственный метод";
             // 
             // calcToolStripMenuItem
             // 
@@ -292,6 +303,13 @@
             this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
             this.dataGridViewTextBoxColumn12.Width = 50;
             // 
+            // exportVtkToolStripMenuItem
+            // 
+            this.exportVtkToolStripMenuItem.Name = "exportVtkToolStripMenuItem";
+            this.exportVtkToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.exportVtkToolStripMenuItem.Text = "Экспорт в vtk";
+            this.exportVtkToolStripMenuItem.Click += new System.EventHandler(this.exportVtkToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -346,6 +364,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        private System.Windows.Forms.ToolStripMenuItem пространственныйМетодToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportVtkToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog exportFile;
 
     }
 }
