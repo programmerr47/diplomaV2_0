@@ -200,10 +200,10 @@ namespace DiplomaV2._0.files
                                 double by = result[x, y, z].y;
                                 double az = result[last, y, z].z;
                                 double bz = result[x, y, z].z;
-                                for (int index = last + 1; index < z; index++)
+                                for (int index = last + 1; index < x; index++)
                                 {
-                                    double k1 = (1.0 * index - last) / (z - last);
-                                    double k2 = (z - 1.0 * index) / (z - last);
+                                    double k1 = (1.0 * index - last) / (x - last);
+                                    double k2 = (x - 1.0 * index) / (x - last);
 
                                     result[index, y, z] = new Number(ax * k1 + bx * k2,
                                                                      ay * k1 + by * k2,
@@ -217,7 +217,7 @@ namespace DiplomaV2._0.files
 
                     if (last != -1)
                     {
-                        for (int index = last; index < result.GetLength(2); index++)
+                        for (int index = last; index < result.GetLength(0); index++)
                         {
                             result[index, y, z] = new Number(result[last, y, z].x, result[last, y, z].y, result[last, y, z].z);
                         }
