@@ -101,9 +101,9 @@ namespace DiplomaV2._0.files
                                     double k1 = (1.0 * index - last) / (z - last);
                                     double k2 = (z - 1.0 * index) / (z - last);
 
-                                    result[x, y, index] = new Number(ax * k1 + bx * k2,
-                                                                     ay * k1 + by * k2,
-                                                                     az * k1 + bz * k2);
+                                    result[x, y, index] = new Number(ax * k2 + bx * k1,
+                                                                     ay * k2 + by * k1,
+                                                                     az * k2 + bz * k1);
                                 }
                             }
 
@@ -153,9 +153,9 @@ namespace DiplomaV2._0.files
                                     double k1 = (1.0 * index - last) / (y - last);
                                     double k2 = (y - 1.0 * index) / (y - last);
 
-                                    result[x, index, z] = new Number(ax * k1 + bx * k2,
-                                                                     ay * k1 + by * k2,
-                                                                     az * k1 + bz * k2);
+                                    result[x, index, z] = new Number(ax * k2 + bx * k1,
+                                                                     ay * k2 + by * k1,
+                                                                     az * k2 + bz * k1);
                                 }
                             }
 
@@ -205,9 +205,9 @@ namespace DiplomaV2._0.files
                                     double k1 = (1.0 * index - last) / (x - last);
                                     double k2 = (x - 1.0 * index) / (x - last);
 
-                                    result[index, y, z] = new Number(ax * k1 + bx * k2,
-                                                                     ay * k1 + by * k2,
-                                                                     az * k1 + bz * k2);
+                                    result[index, y, z] = new Number(ax * k2 + bx * k1,
+                                                                     ay * k2 + by * k1,
+                                                                     az * k2 + bz * k1);
                                 }
                             }
 
@@ -284,11 +284,11 @@ namespace DiplomaV2._0.files
 
             int column = 0;
             string line = "";
-            for (int x = 0; x < result.GetLength(0); x++)
+            for (int z = 0; z < result.GetLength(2); z++)
             {
                 for (int y = 0; y < result.GetLength(1); y++)
                 {
-                    for (int z = 0; z < result.GetLength(2); z++)
+                    for (int x = 0; x < result.GetLength(0); x++)
                     {
                         line += result[x, y, z].x.ToString().Replace(Constants.DECIMAL_SEPARATOR, ".") + 
                                 " " +
