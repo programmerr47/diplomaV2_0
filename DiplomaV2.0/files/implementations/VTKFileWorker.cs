@@ -33,8 +33,9 @@ namespace DiplomaV2._0.files
 
         public VTKFileWorker(Form1 pf) : base(pf) {}
 
-        public override void writeInFile()
+        public override void writeInFile(int[] parameters)
         {
+            //analyse parameters
             DataGridView dataA = parentForm.getDatabaseA();
             DataGridView dataB = parentForm.getDatabaseB();
 

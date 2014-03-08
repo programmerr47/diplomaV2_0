@@ -12,7 +12,7 @@ namespace DiplomaV2._0.files
     {
         public PropertyFileWorker(Form1 pf) : base(pf) { }
 
-        public override void writeInFile()
+        public override void writeInFile(int[] parameters)
         {
             StreamWriter streamWriter = File.CreateText(utils.Properties.directoryOfApp + utils.Properties.currentNamePropertyFile);
             streamWriter.WriteLine("decimalSeparator=" + utils.Properties.currentDecimalSeparator + "");

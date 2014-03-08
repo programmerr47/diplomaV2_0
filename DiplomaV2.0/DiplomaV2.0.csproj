@@ -58,6 +58,12 @@
     <Compile Include="Database.cs" />
     <Compile Include="calculations\ICalculation.cs" />
     <Compile Include="exceptions\DataBaseException.cs" />
+    <Compile Include="ExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportForm.Designer.cs">
+      <DependentUpon>ExportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="files\AbstractFileWorker.cs" />
     <Compile Include="files\FileFactory.cs" />
     <Compile Include="files\implementations\CSVFileWorker.cs" />
@@ -90,6 +96,9 @@
     <Compile Include="utils\Utils.cs" />
     <EmbeddedResource Include="CalculateProgressForm.resx">
       <DependentUpon>CalculateProgressForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportForm.resx">
+      <DependentUpon>ExportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

@@ -13,7 +13,7 @@ namespace DiplomaV2._0.files
     {
         public CSVFileWorker(Form1 pf) : base(pf) {}
 
-        public override void writeInFile()
+        public override void writeInFile(int[] parameters)
         {
             DataGridView dataA = parentForm.getDatabaseA();
             DataGridView dataB = parentForm.getDatabaseB();

@@ -106,7 +106,7 @@ namespace DiplomaV2._0
 
             IFileWorker worker;
             worker = FileFactory.createWorker(Utils.Formats.PROPERTY, this);
-            worker.writeInFile();
+            worker.writeInFile(null);
         }
 
         private void LoadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -162,7 +162,7 @@ namespace DiplomaV2._0
                 }
             }
 
-            worker.writeInFile();
+            worker.writeInFile(null);
         }
 
         private void сохранитьКакToolStripMenuItem_Click(object sender, EventArgs e)
@@ -175,7 +175,7 @@ namespace DiplomaV2._0
             {
                 utils.Properties.currentPathToFile = saveFile.FileName;
                 worker.parseFileName();
-                worker.writeInFile();
+                worker.writeInFile(null);
                 setFormText();
             }
         }
@@ -238,14 +238,13 @@ namespace DiplomaV2._0
             catch (Exception ex)
             {
             }
-            IFileWorker worker;
-            worker = FileFactory.createWorker(Utils.Formats.VTK, this);
 
             if (exportFile.ShowDialog() == DialogResult.OK)
             {
+                IFileWorker worker = FileFactory.createWorker(Utils.Formats.VTK, this);
                 utils.Properties.currentPathToFile = exportFile.FileName;
-                worker.parseFileName();
-                worker.writeInFile();
+                ExportForm exportForm = new ExportForm(worker);
+                exportForm.Show();
             }
         }
     }

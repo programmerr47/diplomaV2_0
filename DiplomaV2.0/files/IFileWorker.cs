@@ -9,7 +9,7 @@ namespace DiplomaV2._0.files
     interface IFileWorker
     {
         void parseFileName();
-        void writeInFile();
+        void writeInFile(int[] parameters);
         void readFromFile();
     }
 }
