@@ -27,57 +27,58 @@ namespace DiplomaV2._0
 
         public ExportForm(IFileWorker worker)
         {
-            this.worker = worker;
             InitializeComponent();
+            this.worker = worker;
+            ObservingTimer.Start();
         }
 
         private void ObservingTimer_Tick(object sender, EventArgs e)
         {
 
-            int rectSizeX;
+            int rectSizeX = -1;
             try { rectSizeX = Int32.Parse(xRecSize.Text); }
             catch (Exception ex) { rectSizeX = -1; }
             sizeX = rectSizeX;
 
-            int rectSizeY;
+            int rectSizeY = -1;
             try { rectSizeY = Int32.Parse(yRecSize.Text); }
             catch (Exception ex) { rectSizeY = -1; }
             sizeY = rectSizeY;
 
-            int rectSizeZ;
+            int rectSizeZ = -1;
             try { rectSizeZ = Int32.Parse(zRecSize.Text); }
             catch (Exception ex) { rectSizeZ = -1; }
             sizeZ = rectSizeZ;
 
-            int rectBeginX;
+            int rectBeginX = -1;
             try { rectBeginX = Int32.Parse(xRecOffset.Text); }
             catch (Exception ex) { rectBeginX = -1; }
             offsetX = rectBeginX;
 
-            int rectBeginY;
+            int rectBeginY = -1;
             try { rectBeginY = Int32.Parse(yRecOffset.Text); }
             catch (Exception ex) { rectBeginY = -1; }
             offsetY = rectBeginY;
 
-            int rectBeginZ;
+            int rectBeginZ = -1;
             try { rectBeginZ = Int32.Parse(zRecOffset.Text); }
             catch (Exception ex) { rectBeginZ = -1; }
             offsetZ = rectBeginZ;
 
-            int rectStepX;
+            int rectStepX = -1;
             try { rectStepX = Int32.Parse(xRecStep.Text); }
             catch (Exception ex) { rectStepX = -1; }
-            stepX = rectSizeX;
+            stepX = rectStepX;
 
-            int rectStepY;
+            int rectStepY = -1;
             try { rectStepY = Int32.Parse(yRecStep.Text); }
             catch (Exception ex) { rectStepY = -1; }
-            stepY = rectSizeZ;
+            stepY = rectStepY;
 
-            int rectStepZ;
+            int rectStepZ = -1;
             try { rectStepZ = Int32.Parse(zRecStep.Text); }
             catch (Exception ex) { rectStepZ = -1; }
-            stepZ = rectSizeZ;
+            stepZ = rectStepZ;
 
             if ((sizeX != -1) && (sizeY != -1) && (sizeZ != -1) &&
                 (offsetX != -1) && (offsetY != -1) && (offsetZ != -1) &&

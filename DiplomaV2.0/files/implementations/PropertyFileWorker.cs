@@ -66,7 +66,7 @@ namespace DiplomaV2._0.files
             }
             catch (FileNotFoundException ex)
             {
-                writeInFile();
+                writeInFile(null);
             }
         }
     }

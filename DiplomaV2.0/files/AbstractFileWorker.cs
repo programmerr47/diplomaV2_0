@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DiplomaV2._0.files
 {
-    abstract class AbstractFileWorker : IFileWorker
+    public abstract class AbstractFileWorker : IFileWorker
     {
         protected Form1 parentForm;
 
@@ -26,7 +26,7 @@ namespace DiplomaV2._0.files
             utils.Properties.currentDirectory = path.Substring(0, index);
         }
 
-        public abstract void writeInFile();
+        public abstract void writeInFile(int[] parameters);
         public abstract void readFromFile();
     }
 }

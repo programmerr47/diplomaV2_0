@@ -30,6 +30,12 @@ namespace DiplomaV2._0.files
         private Number[, ,] result;
         private Number[, ,] oneSeqRectangle;
         private ArrayList seqs;
+        private int originX = 0;
+        private int originY = 0;
+        private int originZ = 0;
+        private int spacingX = 1;
+        private int spacingY = 1;
+        private int spacingZ = 1;
 
         public VTKFileWorker(Form1 pf) : base(pf) {}
 
@@ -40,7 +46,7 @@ namespace DiplomaV2._0.files
             DataGridView dataB = parentForm.getDatabaseB();
 
             generateSeqs();
-            result = copyFromDataGridToNet(dataA, dataB);
+            result = copyFromDataGridToNet(dataA, dataB, parameters);
             waveForThirdCoordinate();
             waveForSecondCoordinate();
             waveForFirstCoordinate();
@@ -227,11 +233,15 @@ namespace DiplomaV2._0.files
             }
         }
 
-        private Number[,,] copyFromDataGridToNet(DataGridView dataA, DataGridView dataB) 
+        private Number[,,] copyFromDataGridToNet(DataGridView dataA, DataGridView dataB, int[] parameters) 
         {
             int maxX = 0;
             int maxY = 0;
             int maxZ = 0;
+
+            int minX = Int32.MaxValue;
+            int minY = Int32.MaxValue;
+            int minZ = Int32.MaxValue;
 
             maxX = getMaxFromDataGrid(dataA, maxX, 0);
             maxX = getMaxFromDataGrid(dataB, maxX, 0);
@@ -242,18 +252,36 @@ namespace DiplomaV2._0.files
             maxZ = getMaxFromDataGrid(dataA, maxZ, 2);
             maxZ = getMaxFromDataGrid(dataB, maxZ, 2);
 
-            Number[, ,] resultArray = new Number[maxX + 1, maxY + 1, maxZ + 1];
+            minX = getMinFromDataGrid(dataA, minX, 0);
+            minX = getMinFromDataGrid(dataB, minX, 0);
 
-            //for (int x = 0; x < resultArray.GetLength(0); x++)
-            //{
-            //    for (int y = 0; y < resultArray.GetLength(1); y++)
-            //    {
-            //        for (int z = 0; z < resultArray.GetLength(2); z++)
-            //        {
-            //            resultArray[x, y, z] = new Number(0, 0, 0);
-            //        }
-            //    }
-            //}
+            minY = getMinFromDataGrid(dataA, minY, 1);
+            minY = getMinFromDataGrid(dataB, minY, 1);
+
+            minZ = getMinFromDataGrid(dataA, minZ, 2);
+            minZ = getMinFromDataGrid(dataB, minZ, 2);
+
+            originX = minX;
+            originY = minY;
+            originZ = minZ;
+
+            if (parameters != null)
+            {
+                maxX = parameters[0] - 1 + parameters[3];
+                maxY = parameters[1] - 1 + parameters[4];
+                maxZ = parameters[2] - 1 + parameters[5];
+                originX = parameters[3];
+                originY = parameters[4];
+                originZ = parameters[5];
+                spacingX = parameters[6];
+                spacingY = parameters[7];
+                spacingZ = parameters[8];
+            }
+
+            int remainX = (((maxX + 1 - originX) % spacingX) == 0) ? 0 : 1;
+            int remainY = (((maxY + 1 - originY) % spacingY) == 0) ? 0 : 1;
+            int remainZ = (((maxZ + 1 - originZ) % spacingZ) == 0) ? 0 : 1;
+            Number[, ,] resultArray = new Number[(maxX + 1 - originX) / spacingX + remainX, (maxY + 1 - originY) / spacingY + remainY, (maxZ + 1 - originZ) / spacingZ + remainZ];
 
             copyDataGridToNet(dataA, resultArray);
             copyDataGridToNet(dataA, resultArray);
@@ -272,14 +300,14 @@ namespace DiplomaV2._0.files
 //ORIGIN 0 0 0
 //SPACING 4 4 4
 //POINT_DATA 1000000
-            //VECTORS vectors double
+//VECTORS vectors double
             streamwriter.WriteLine("# vtk DataFile Version 2.0");
             streamwriter.WriteLine("Cube example");
             streamwriter.WriteLine("ASCII");
             streamwriter.WriteLine("DATASET STRUCTURED_POINTS");
             streamwriter.WriteLine("DIMENSIONS " + result.GetLength(0) + " " + result.GetLength(1) + " " + result.GetLength(2));
-            streamwriter.WriteLine("ORIGIN 0 0 0");
-            streamwriter.WriteLine("SPACING 4 4 4");
+            streamwriter.WriteLine("ORIGIN " + originX + " " + originY + " " + originZ);
+            streamwriter.WriteLine("SPACING " + spacingX + " " + spacingY + " " + spacingZ);
             streamwriter.WriteLine("POINT_DATA " + result.Length);
             streamwriter.WriteLine("VECTORS vectors double");
 
@@ -334,6 +362,21 @@ namespace DiplomaV2._0.files
             return currentMax;
         }
 
+        private int getMinFromDataGrid(DataGridView data, int currentMin, int coord)
+        {
+            int currentElement;
+            for (int i = 0; i < data.RowCount - 1; i++)
+            {
+                currentElement = Int32.Parse(data.Rows[i].Cells[coord].Value.ToString());
+                if (currentElement < currentMin)
+                {
+                    currentMin = currentElement;
+                }
+            }
+
+            return currentMin;
+        }
+
         private void copyDataGridToNet(DataGridView data, Number[, ,] result)
         {
             int x;
@@ -341,12 +384,45 @@ namespace DiplomaV2._0.files
             int z;
             for (int i = 0; i < data.RowCount - 1; i++)
             {
-                x = Int32.Parse(data.Rows[i].Cells[0].Value.ToString());
-                y = Int32.Parse(data.Rows[i].Cells[1].Value.ToString());
-                z = Int32.Parse(data.Rows[i].Cells[2].Value.ToString());
+                x = Int32.Parse(data.Rows[i].Cells[0].Value.ToString()) - originX;
+                y = Int32.Parse(data.Rows[i].Cells[1].Value.ToString()) - originY;
+                z = Int32.Parse(data.Rows[i].Cells[2].Value.ToString()) - originZ;
 
                 int p = data.Rows[i].Cells.Count;
-                //double k = Convert.ToDouble(data.Rows[i].Cells[3].Value.ToString());
+
+                if (x % spacingX == 0)
+                {
+                    x = x / spacingX;
+                }
+                else
+                {
+                    break;
+                }
+
+                if (y % spacingY == 0)
+                {
+                    y = y / spacingY;
+                }
+                else
+                {
+                    break;
+                }
+
+                if (z % spacingZ == 0)
+                {
+                    z = z / spacingZ;
+                }
+                else
+                {
+                    break;
+                }
+
+                if ((x >= result.GetLength(0)) ||
+                    (y >= result.GetLength(1)) ||
+                    (z >= result.GetLength(2)))
+                {
+                    break;
+                }
 
                 if (result[x, y, z] == null)
                 {

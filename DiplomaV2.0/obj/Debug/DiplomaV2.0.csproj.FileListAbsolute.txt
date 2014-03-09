@@ -32,3 +32,4 @@ C:\Users\Mikl\documents\visual studio 2012\Projects\testgit\diplomaV2_0\DiplomaV
 C:\Users\Mikl\documents\visual studio 2012\Projects\testgit\diplomaV2_0\DiplomaV2.0\obj\Debug\DiplomaV2.0.csproj.GenerateResource.Cache
 C:\Users\Mikl\documents\visual studio 2012\Projects\testgit\diplomaV2_0\DiplomaV2.0\bin\Debug\DiplomaV2.0.exe
 C:\Users\Mikl\documents\visual studio 2012\Projects\testgit\diplomaV2_0\DiplomaV2.0\bin\Debug\DiplomaV2.0.pdb
+C:\Users\Mikl\documents\visual studio 2012\Projects\testgit\diplomaV2_0\DiplomaV2.0\obj\Debug\DiplomaV2._0.ExportForm.resources

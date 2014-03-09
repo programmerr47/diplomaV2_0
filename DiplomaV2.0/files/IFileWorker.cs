@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DiplomaV2._0.files
 {
-    interface IFileWorker
+    public interface IFileWorker
     {
         void parseFileName();
         void writeInFile(int[] parameters);
