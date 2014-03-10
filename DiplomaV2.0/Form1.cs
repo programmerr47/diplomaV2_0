@@ -39,6 +39,26 @@ namespace DiplomaV2._0
                 lagranghToolStripMenuItem.Checked = true;
             }
             setFormText();
+
+            if (!File.Exists(utils.Properties.currentPathToParaview))
+            {
+                DialogResult d = MessageBox.Show("Хотите ли вы указать путь до Paraview?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                if (d == DialogResult.Yes)
+                {
+                    if (openFile.ShowDialog() == DialogResult.OK)
+                    {
+                        if (System.IO.File.Exists(openFile.FileName))
+                        {
+                            utils.Properties.currentPathToParaview = openFile.FileName;
+                        }
+                    }
+                }
+                else if (d == DialogResult.No)
+                {
+                    return;
+                }
+            }
         }
 
         private void lagranghToolStripMenuItem_Click(object sender, EventArgs e)
@@ -242,8 +262,9 @@ namespace DiplomaV2._0
             if (exportFile.ShowDialog() == DialogResult.OK)
             {
                 IFileWorker worker = FileFactory.createWorker(Utils.Formats.VTK, this);
+                IFileWorker propertyWorker = FileFactory.createWorker(Utils.Formats.PROPERTY, this);
                 utils.Properties.currentPathToFile = exportFile.FileName;
-                ExportForm exportForm = new ExportForm(worker);
+                ExportForm exportForm = new ExportForm(worker, propertyWorker);
                 exportForm.Show();
             }
         }

@@ -55,6 +55,7 @@
             this.standartButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.ObservingTimer = new System.Windows.Forms.Timer(this.components);
+            this.openFile = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // label12
@@ -337,6 +338,7 @@
         private System.Windows.Forms.Button standartButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Timer ObservingTimer;
+        private System.Windows.Forms.OpenFileDialog openFile;
 
     }
 }

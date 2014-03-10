@@ -18,6 +18,7 @@ namespace DiplomaV2._0.files
             streamWriter.WriteLine("decimalSeparator=" + utils.Properties.currentDecimalSeparator + "");
             streamWriter.WriteLine("pathToFile=" + utils.Properties.currentPathToFile + "");
             streamWriter.WriteLine("calculationMethod=" + utils.Properties.currentCalculateMethod + "");
+            streamWriter.WriteLine("currentPathToParaview=" + utils.Properties.currentPathToParaview + "");
             streamWriter.Close();
         }
 
@@ -58,6 +59,11 @@ namespace DiplomaV2._0.files
                                 {
                                     utils.Properties.currentCalculateMethod = Utils.Calcs.LAGRANGE;
                                 }
+                                break;
+                            }
+                        case "currentPathToParaview":
+                            {
+                                utils.Properties.currentPathToParaview = comms[1];
                                 break;
                             }
                     }

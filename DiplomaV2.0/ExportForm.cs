@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,11 +26,13 @@ namespace DiplomaV2._0
         int stepY = -1;
         int stepZ = -1;
         IFileWorker worker;
+        IFileWorker propertyWorker;
 
-        public ExportForm(IFileWorker worker)
+        public ExportForm(IFileWorker worker, IFileWorker propertyWorker)
         {
             InitializeComponent();
             this.worker = worker;
+            this.propertyWorker = propertyWorker;
             ObservingTimer.Start();
         }
 
@@ -99,15 +103,55 @@ namespace DiplomaV2._0
 
         private void standartButton_Click(object sender, EventArgs e)
         {
-            worker.parseFileName();
-            worker.writeInFile(null);
+            writeToFile(null);
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            int[] parameters = new int[] { sizeX, sizeY, sizeZ, offsetX, offsetY, offsetZ, stepX, stepY, stepZ };
+            writeToFile(new int[] { sizeX, sizeY, sizeZ, offsetX, offsetY, offsetZ, stepX, stepY, stepZ });
+        }
+
+        private void writeToFile(int[] parameters)
+        {
             worker.parseFileName();
             worker.writeInFile(parameters);
+
+            DialogResult d = MessageBox.Show("Экспорт завершен. Вы хотите посмотреть результаты в ParaView?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+            if (d == DialogResult.Yes)
+            {
+                if (!File.Exists(utils.Properties.currentPathToParaview))
+                {
+                    DialogResult d2 = MessageBox.Show("Последний указанный путь к Paraview недействителен. Хотите ли вы указать новый путь до Paraview?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                    if (d == DialogResult.Yes)
+                    {
+                        if (openFile.ShowDialog() == DialogResult.OK)
+                        {
+                            if (System.IO.File.Exists(openFile.FileName))
+                            {
+                                utils.Properties.currentPathToParaview = openFile.FileName; 
+                                propertyWorker.writeInFile(null);
+                            }
+                        }
+                    }
+                    else if (d == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+
+                ProcessStartInfo infoStartProcess = new ProcessStartInfo();
+
+                //infoStartProcess.WorkingDirectory = pathToDirectory;
+                infoStartProcess.FileName = utils.Properties.currentPathToParaview;
+
+                Process.Start(infoStartProcess);
+            }
+            else if (d == DialogResult.No)
+            {
+                return;
+            }
         }
     }
 }

@@ -16,5 +16,6 @@ namespace DiplomaV2._0.utils
         public static string currentDirectory = Directory.GetCurrentDirectory() + "\\";
         public static string currentPathToFile = currentDirectory + currentFileName;
         public static Utils.Calcs currentCalculateMethod = Utils.Calcs.LAGRANGE;
+        public static string currentPathToParaview = "C:\\Program Files\\ParaView 4.0.1\\paraview.exe";
     }
 }

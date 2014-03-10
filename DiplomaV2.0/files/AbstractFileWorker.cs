@@ -22,8 +22,23 @@ namespace DiplomaV2._0.files
             int index = path.Length - 1;
             while ((path[index] != '\\') && (index > 0))
                 index--;
-            utils.Properties.currentFileName = path.Substring(index + 1);
+            if ((getExtension(path) != null) && (!getExtension(path).ToLower().Equals("vtk")))
+            {
+                utils.Properties.currentFileName = path.Substring(index + 1);
+            }
             utils.Properties.currentDirectory = path.Substring(0, index);
+        }
+
+        private string getExtension(string path) 
+        {
+            if (path.LastIndexOf(".") != -1)
+            {
+                return path.Substring(path.LastIndexOf(".") + 1);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public abstract void writeInFile(int[] parameters);
