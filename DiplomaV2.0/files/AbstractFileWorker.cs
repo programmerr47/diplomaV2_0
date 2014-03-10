@@ -22,7 +22,7 @@ namespace DiplomaV2._0.files
             int index = path.Length - 1;
             while ((path[index] != '\\') && (index > 0))
                 index--;
-            if ((getExtension(path) != null) && (!getExtension(path).ToLower().Equals("vtk")))
+            if ((getExtension(path) != null) && (getExtension(path).ToLower().Equals("csv")))
             {
                 utils.Properties.currentFileName = path.Substring(index + 1);
             }

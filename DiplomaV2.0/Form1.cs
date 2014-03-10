@@ -25,9 +25,9 @@ namespace DiplomaV2._0
             openFile.Filter = Constants.fileFilter;
             exportFile.Filter = Constants.exportFileFilter;
             IFileWorker worker;
-            worker = FileFactory.createWorker(Utils.Formats.CSV, this);
-            worker.readFromFile();
             worker = FileFactory.createWorker(Utils.Formats.PROPERTY, this);
+            worker.readFromFile();
+            worker = FileFactory.createWorker(Utils.Formats.CSV, this);
             worker.readFromFile();
 
             if (utils.Properties.currentCalculateMethod.Equals(Utils.Calcs.LINEAR))
@@ -46,6 +46,7 @@ namespace DiplomaV2._0
 
                 if (d == DialogResult.Yes)
                 {
+                    openFile.Filter = null;
                     if (openFile.ShowDialog() == DialogResult.OK)
                     {
                         if (System.IO.File.Exists(openFile.FileName))
@@ -53,6 +54,7 @@ namespace DiplomaV2._0
                             utils.Properties.currentPathToParaview = openFile.FileName;
                         }
                     }
+                    openFile.Filter = Constants.fileFilter;
                 }
                 else if (d == DialogResult.No)
                 {
@@ -141,6 +143,7 @@ namespace DiplomaV2._0
                     return;
             }
 
+            openFile.FileName = null;
             if (openFile.ShowDialog() == DialogResult.OK)
             {
                 if (System.IO.File.Exists(openFile.FileName))
