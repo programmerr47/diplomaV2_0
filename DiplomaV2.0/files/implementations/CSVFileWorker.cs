@@ -51,7 +51,7 @@ namespace DiplomaV2._0.files
 
             dataA.Rows.Clear();
             dataB.Rows.Clear();
-            if (utils.Properties.currentPathToFile != "-")
+            if ((utils.Properties.currentPathToFile != "-") && (Utils.getExtension(utils.Properties.currentPathToFile) != null) && (Utils.getExtension(utils.Properties.currentPathToFile).ToLower().Equals("csv")))
             {
                 try
                 {
@@ -93,12 +93,21 @@ namespace DiplomaV2._0.files
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Последний используемый программой проект не найден. Создан новый проект", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    utils.Properties.currentFileName = "-";
-                    utils.Properties.currentPathToFile = "-";
-                    utils.Properties.currentDirectory = "-";
+                    writeErrorMessage();
                 }
             }
+            else
+            {
+                writeErrorMessage();
+            }
+        }
+
+        private void writeErrorMessage()
+        {
+            MessageBox.Show("Последний используемый программой проект не найден. Создан новый проект", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            utils.Properties.currentFileName = "-";
+            utils.Properties.currentPathToFile = "-";
+            utils.Properties.currentDirectory = "-";
         }
     }
 }

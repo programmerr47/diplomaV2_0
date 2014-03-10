@@ -15,6 +15,19 @@ namespace DiplomaV2._0.utils
         public enum Calcs { LAGRANGE, LINEAR }
         public enum Formats { VTK, CSV, PROPERTY}
 
+
+        public static string getExtension(string path)
+        {
+            if (path.LastIndexOf(".") != -1)
+            {
+                return path.Substring(path.LastIndexOf(".") + 1);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static double[,] parseStrings(DataGridView dataBase, int start, int end)
         {
             double[,] result = new double[dataBase.RowCount - 1, end - start];
