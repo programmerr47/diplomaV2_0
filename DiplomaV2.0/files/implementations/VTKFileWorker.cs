@@ -8,24 +8,12 @@ using System.Windows.Forms;
 
 using DiplomaV2._0.utils;
 using System.Collections;
+using DiplomaV2._0.exportCalculations;
 
 namespace DiplomaV2._0.files
 {
     class VTKFileWorker : AbstractFileWorker
     {
-        private class Number
-        {
-            public Number(double x, double y, double z) 
-            {
-                this.x = x;
-                this.y = y;
-                this.z = z;
-            }
-
-            public double x;
-            public double y;
-            public double z;
-        }
 
         private Number[, ,] result;
         private Number[, ,] oneSeqRectangle;
@@ -36,6 +24,7 @@ namespace DiplomaV2._0.files
         private int spacingX = 1;
         private int spacingY = 1;
         private int spacingZ = 1;
+        private int method = ExportCalculationFactory.LINEAR_SPLINE;
 
         public VTKFileWorker(Form1 pf) : base(pf) {}
 
@@ -83,47 +72,23 @@ namespace DiplomaV2._0.files
             {
                 for (int y = 0; y < result.GetLength(1); y++)
                 {
-                    int last = -1;
-                    for (int z = 0; z < result.GetLength(2); z++)
+                    Number[] row = new Number[result.GetLength(2)];
+                    bool hasNumbers = false;
+                    for (int i = 0; i < result.GetLength(2); i++)
                     {
-                        if (result[x, y, z] != null)
-                        {
-                            if (last == -1)
-                            {
-                                for (int index = 0; index < z; index++)
-                                {
-                                    result[x, y, index] = new Number(result[x, y, z].x, result[x, y, z].y, result[x, y, z].z);
-                                }
-                            }
-                            else
-                            {
-                                double ax = result[x, y, last].x;
-                                double bx = result[x, y, z].x;
-                                double ay = result[x, y, last].y;
-                                double by = result[x, y, z].y;
-                                double az = result[x, y, last].z;
-                                double bz = result[x, y, z].z;
-                                for (int index = last + 1; index < z; index++)
-                                {
-                                    double k1 = (1.0 * index - last) / (z - last);
-                                    double k2 = (z - 1.0 * index) / (z - last);
-
-                                    result[x, y, index] = new Number(ax * k2 + bx * k1,
-                                                                     ay * k2 + by * k1,
-                                                                     az * k2 + bz * k1);
-                                }
-                            }
-
-                            last = z;
-                        }
+                        row[i] = result[x, y, i];
+                        hasNumbers = hasNumbers || (result[x, y, i] != null);
                     }
 
-                    if (last != -1)
+                    if (hasNumbers)
                     {
-                        for (int index = last; index < result.GetLength(2); index++)
-                        {
-                            result[x, y, index] = new Number(result[x, y, last].x, result[x, y, last].y, result[x, y, last].z);
-                        }
+                        IExportCalculation calculation = ExportCalculationFactory.getCalculation(method);
+                        row = calculation.fillValues(row);
+                    }
+
+                    for (int i = 0; i < result.GetLength(2); i++)
+                    {
+                        result[x, y, i] = row[i];
                     }
                 }
             }
@@ -135,47 +100,23 @@ namespace DiplomaV2._0.files
             {
                 for (int z = 0; z < result.GetLength(2); z++)
                 {
-                    int last = -1;
-                    for (int y = 0; y < result.GetLength(1); y++)
+                    Number[] row = new Number[result.GetLength(1)];
+                    bool hasNumbers = false;
+                    for (int i = 0; i < result.GetLength(1); i++)
                     {
-                        if (result[x, y, z] != null)
-                        {
-                            if (last == -1)
-                            {
-                                for (int index = 0; index < y; index++)
-                                {
-                                    result[x, index, z] = new Number(result[x, y, z].x, result[x, y, z].y, result[x, y, z].z);
-                                }
-                            }
-                            else
-                            {
-                                double ax = result[x, last, z].x;
-                                double bx = result[x, y, z].x;
-                                double ay = result[x, last, z].y;
-                                double by = result[x, y, z].y;
-                                double az = result[x, last, z].z;
-                                double bz = result[x, y, z].z;
-                                for (int index = last + 1; index < y; index++)
-                                {
-                                    double k1 = (1.0 * index - last) / (y - last);
-                                    double k2 = (y - 1.0 * index) / (y - last);
-
-                                    result[x, index, z] = new Number(ax * k2 + bx * k1,
-                                                                     ay * k2 + by * k1,
-                                                                     az * k2 + bz * k1);
-                                }
-                            }
-
-                            last = y;
-                        }
+                        row[i] = result[x, i, z];
+                        hasNumbers = hasNumbers || (result[x, i, z] != null);
                     }
 
-                    if (last != -1)
+                    if (hasNumbers)
                     {
-                        for (int index = last; index < result.GetLength(1); index++)
-                        {
-                            result[x, index, z] = new Number(result[x, last, z].x, result[x, last, z].y, result[x, last, z].z);
-                        }
+                        IExportCalculation calculation = ExportCalculationFactory.getCalculation(method);
+                        row = calculation.fillValues(row);
+                    }
+
+                    for (int i = 0; i < result.GetLength(1); i++)
+                    {
+                        result[x, i, z] = row[i];
                     }
                 }
             }
@@ -187,47 +128,23 @@ namespace DiplomaV2._0.files
             {
                 for (int y = 0; y < result.GetLength(1); y++)
                 {
-                    int last = -1;
-                    for (int x = 0; x < result.GetLength(0); x++)
+                    Number[] row = new Number[result.GetLength(0)];
+                    bool hasNumbers = false;
+                    for (int i = 0; i < result.GetLength(0); i++)
                     {
-                        if (result[x, y, z] != null)
-                        {
-                            if (last == -1)
-                            {
-                                for (int index = 0; index < x; index++)
-                                {
-                                    result[index, y, z] = new Number(result[x, y, z].x, result[x, y, z].y, result[x, y, z].z);
-                                }
-                            }
-                            else
-                            {
-                                double ax = result[last, y, z].x;
-                                double bx = result[x, y, z].x;
-                                double ay = result[last, y, z].y;
-                                double by = result[x, y, z].y;
-                                double az = result[last, y, z].z;
-                                double bz = result[x, y, z].z;
-                                for (int index = last + 1; index < x; index++)
-                                {
-                                    double k1 = (1.0 * index - last) / (x - last);
-                                    double k2 = (x - 1.0 * index) / (x - last);
-
-                                    result[index, y, z] = new Number(ax * k2 + bx * k1,
-                                                                     ay * k2 + by * k1,
-                                                                     az * k2 + bz * k1);
-                                }
-                            }
-
-                            last = x;
-                        }
+                        row[i] = result[i, y, z];
+                        hasNumbers = hasNumbers || (result[i, y, z] != null);
                     }
 
-                    if (last != -1)
+                    if (hasNumbers)
                     {
-                        for (int index = last; index < result.GetLength(0); index++)
-                        {
-                            result[index, y, z] = new Number(result[last, y, z].x, result[last, y, z].y, result[last, y, z].z);
-                        }
+                        IExportCalculation calculation = ExportCalculationFactory.getCalculation(method);
+                        row = calculation.fillValues(row);
+                    }
+
+                    for (int i = 0; i < result.GetLength(0); i++)
+                    {
+                        result[i, y, z] = row[i];
                     }
                 }
             }
@@ -276,6 +193,7 @@ namespace DiplomaV2._0.files
                 spacingX = parameters[6];
                 spacingY = parameters[7];
                 spacingZ = parameters[8];
+                method = parameters[9];
             }
 
             int remainX = (((maxX + 1 - originX) % spacingX) == 0) ? 0 : 1;

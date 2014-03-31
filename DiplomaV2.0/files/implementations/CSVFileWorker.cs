@@ -48,6 +48,9 @@ namespace DiplomaV2._0.files
         {
             DataGridView dataA = parentForm.getDatabaseA();
             DataGridView dataB = parentForm.getDatabaseB();
+            bool firstOffsetX = true;
+            bool firstOffsetY = true;
+            bool firstOffsetZ = true;
 
             dataA.Rows.Clear();
             dataB.Rows.Clear();
@@ -71,14 +74,98 @@ namespace DiplomaV2._0.files
                                 if (dataA.Rows.Count <= i + 1)
                                     dataA.Rows.Add();
                                 for (int j = 0; j < values.Length; j++)
+                                {
                                     dataA.Rows[i].Cells[j].Value = values[j];
+                                    if (j < 3)
+                                    {
+                                        int value = Int32.Parse(values[j]);
+                                        if (j == 0)
+                                        {
+                                            if (value > parentForm.sizeX)
+                                            {
+                                                parentForm.sizeX = value;
+                                            }
+                                            if (firstOffsetX || parentForm.offsetX > value)
+                                            {
+                                                parentForm.offsetX = value;
+                                                firstOffsetX = false;
+                                            }
+                                        }
+                                        else if (j == 1)
+                                        {
+                                            if (value > parentForm.sizeY)
+                                            {
+                                                parentForm.sizeY = value;
+                                            }
+                                            if (firstOffsetY || parentForm.offsetY > value)
+                                            {
+                                                parentForm.offsetY = value;
+                                                firstOffsetY = false;
+                                            }
+                                        }
+                                        else if (j == 2)
+                                        {
+                                            if (value > parentForm.sizeZ)
+                                            {
+                                                parentForm.sizeZ = value;
+                                            }
+                                            if (firstOffsetZ || parentForm.offsetZ > value)
+                                            {
+                                                parentForm.offsetZ = value;
+                                                firstOffsetZ = false;
+                                            }
+                                        }
+                                    }
+                                }
                             }
                             else
                             {
                                 if (dataB.Rows.Count == i + 1)
                                     dataB.Rows.Add();
                                 for (int j = 0; j < values.Length; j++)
+                                {
                                     dataB.Rows[i].Cells[j].Value = values[j];
+                                    if (j < 3)
+                                    {
+                                        int value = Int32.Parse(values[j]);
+                                        if (j == 0)
+                                        {
+                                            if (value > parentForm.sizeX)
+                                            {
+                                                parentForm.sizeX = value;
+                                            }
+                                            if (firstOffsetX || parentForm.offsetX > value)
+                                            {
+                                                parentForm.offsetX = value;
+                                                firstOffsetX = false;
+                                            }
+                                        }
+                                        else if (j == 1)
+                                        {
+                                            if (value > parentForm.sizeY)
+                                            {
+                                                parentForm.sizeY = value;
+                                            }
+                                            if (firstOffsetY || parentForm.offsetY > value)
+                                            {
+                                                parentForm.offsetY = value;
+                                                firstOffsetY = false;
+                                            }
+                                        }
+                                        else if (j == 2)
+                                        {
+                                            if (value > parentForm.sizeZ)
+                                            {
+                                                parentForm.sizeZ = value;
+                                            }
+                                            if (firstOffsetZ || parentForm.offsetZ > value)
+                                            {
+                                                parentForm.offsetZ = value;
+                                                firstOffsetZ = false;
+                                            }
+                                        }
+                                    }
+                                }
                             }
 
                             i++;
@@ -91,7 +178,7 @@ namespace DiplomaV2._0.files
                     }
                     streamReader.Close();
                 }
-                catch (Exception ex)
+                catch (IOException ex)
                 {
                     writeErrorMessage();
                 }

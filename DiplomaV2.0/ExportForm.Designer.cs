@@ -52,10 +52,12 @@
             this.dimensionLabel = new System.Windows.Forms.Label();
             this.infoLabel = new System.Windows.Forms.Label();
             this.saveButton = new System.Windows.Forms.Button();
-            this.standartButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.ObservingTimer = new System.Windows.Forms.Timer(this.components);
             this.openFile = new System.Windows.Forms.OpenFileDialog();
+            this.label1 = new System.Windows.Forms.Label();
+            this.recMethod = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label12
@@ -248,16 +250,6 @@
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
-            // standartButton
-            // 
-            this.standartButton.Location = new System.Drawing.Point(187, 177);
-            this.standartButton.Name = "standartButton";
-            this.standartButton.Size = new System.Drawing.Size(121, 40);
-            this.standartButton.TabIndex = 45;
-            this.standartButton.Text = "По умолчанию";
-            this.standartButton.UseVisualStyleBackColor = true;
-            this.standartButton.Click += new System.EventHandler(this.standartButton_Click);
-            // 
             // cancelButton
             // 
             this.cancelButton.Location = new System.Drawing.Point(352, 177);
@@ -273,13 +265,46 @@
             this.ObservingTimer.Interval = 50;
             this.ObservingTimer.Tick += new System.EventHandler(this.ObservingTimer_Tick);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(358, 13);
+            this.label1.TabIndex = 47;
+            this.label1.Text = "(начальные данные, которые указаны ниже, могут быть не точными)";
+            // 
+            // recMethod
+            // 
+            this.recMethod.FormattingEnabled = true;
+            this.recMethod.Items.AddRange(new object[] {
+            "Линейный сплайн",
+            "Лагранж",
+            "Кусочный Лагранж",
+            "Кубический сплайн"});
+            this.recMethod.Location = new System.Drawing.Point(187, 188);
+            this.recMethod.Name = "recMethod";
+            this.recMethod.Size = new System.Drawing.Size(121, 21);
+            this.recMethod.TabIndex = 48;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(184, 172);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(113, 13);
+            this.label2.TabIndex = 49;
+            this.label2.Text = "Метод интерполяции";
+            // 
             // ExportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(487, 229);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.recMethod);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.cancelButton);
-            this.Controls.Add(this.standartButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label13);
@@ -335,10 +360,12 @@
         private System.Windows.Forms.Label dimensionLabel;
         private System.Windows.Forms.Label infoLabel;
         private System.Windows.Forms.Button saveButton;
-        private System.Windows.Forms.Button standartButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Timer ObservingTimer;
         private System.Windows.Forms.OpenFileDialog openFile;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox recMethod;
+        private System.Windows.Forms.Label label2;
 
     }
 }

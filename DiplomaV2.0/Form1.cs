@@ -18,6 +18,13 @@ namespace DiplomaV2._0
 {
     public partial class Form1 : Form
     {
+        public int sizeX = 0;
+        public int sizeY = 0;
+        public int sizeZ = 0;
+        public int offsetX = 0;
+        public int offsetY = 0;
+        public int offsetZ = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -241,11 +248,6 @@ namespace DiplomaV2._0
                 return false;
         }
 
-        private void saveCalcsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Utils.copyBtoA(dataBaseGridA, dataBaseGridB);
-        }
-
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HelpForm hForm = new HelpForm();
@@ -267,8 +269,53 @@ namespace DiplomaV2._0
                 IFileWorker worker = FileFactory.createWorker(Utils.Formats.VTK, this);
                 IFileWorker propertyWorker = FileFactory.createWorker(Utils.Formats.PROPERTY, this);
                 utils.Properties.currentPathToFile = exportFile.FileName;
-                ExportForm exportForm = new ExportForm(worker, propertyWorker);
+                ExportForm exportForm = new ExportForm(worker, propertyWorker, this);
                 exportForm.Show();
+            }
+        }
+
+        private void calculateButton_Click(object sender, EventArgs e)
+        {
+            calcToolStripMenuItem_Click(sender, e);
+        }
+
+        private void keepResultsButton_Click(object sender, EventArgs e)
+        {
+            Utils.copyBtoA(dataBaseGridA, dataBaseGridB);
+        }
+
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            const int FUCKIN_CONST = 30;
+            const int INDENT = 3;
+            int height = this.Size.Height;
+            int width = this.Size.Width;
+            int bottomBarHeight = (keepResultsButton.Size.Height > calculateButton.Size.Height) ? keepResultsButton.Size.Height : calculateButton.Size.Height;
+
+            keepResultsButton.Location = new Point(width / 2, height - FUCKIN_CONST - keepResultsButton.Size.Height - INDENT);
+            calculateButton.Location = new Point(width / 2 - calculateButton.Size.Width, height - FUCKIN_CONST - calculateButton.Size.Height - INDENT);
+            hintLabel1.Location = new Point(width / 2, hintLabel1.Location.Y);
+
+            Size dataBaseGridSize = new Size(width / 2 - 2 * INDENT, height - FUCKIN_CONST - 45 - 2 * INDENT - bottomBarHeight);
+            dataBaseGridA.Size = dataBaseGridSize;
+            dataBaseGridB.Size = dataBaseGridSize;
+            dataBaseGridB.Location = new Point(width / 2 - 2 * INDENT, dataBaseGridB.Location.Y);
+
+            resizeColumns(dataBaseGridB, "Bz");
+            resizeColumns(dataBaseGridA, "Az");
+        }
+
+        private void resizeColumns(DataGridView dataBaseGrid, String dividerColumn)
+        {
+            DataGridViewColumnCollection columns = dataBaseGrid.Columns;
+            int columnWidth = columns.GetFirstColumn(DataGridViewElementStates.Displayed).Width;
+            foreach (DataGridViewColumn column in columns)
+            {
+                column.Width = (dataBaseGridB.Width - 45 - 20) / 6;
+                if (column.HeaderText.Equals(dividerColumn))
+                {
+                    column.Width += 20;
+                }
             }
         }
     }

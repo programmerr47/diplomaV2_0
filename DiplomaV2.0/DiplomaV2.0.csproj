@@ -58,6 +58,12 @@
     <Compile Include="Database.cs" />
     <Compile Include="calculations\ICalculation.cs" />
     <Compile Include="exceptions\DataBaseException.cs" />
+    <Compile Include="exportCalculations\ExportCalculationFactory.cs" />
+    <Compile Include="exportCalculations\IExportCalculation.cs" />
+    <Compile Include="exportCalculations\implementations\CubicSpline.cs" />
+    <Compile Include="exportCalculations\implementations\Lagrange.cs" />
+    <Compile Include="exportCalculations\implementations\LinearSpline.cs" />
+    <Compile Include="exportCalculations\implementations\SimpleLagrange.cs" />
     <Compile Include="ExportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +98,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="utils\Constants.cs" />
     <Compile Include="Progress.cs" />
+    <Compile Include="utils\Number.cs" />
     <Compile Include="utils\Properties.cs" />
     <Compile Include="utils\Utils.cs" />
     <EmbeddedResource Include="CalculateProgressForm.resx">

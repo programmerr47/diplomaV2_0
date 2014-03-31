@@ -25,15 +25,26 @@ namespace DiplomaV2._0
         int stepX = -1;
         int stepY = -1;
         int stepZ = -1;
+        int method = -1;
         IFileWorker worker;
         IFileWorker propertyWorker;
 
-        public ExportForm(IFileWorker worker, IFileWorker propertyWorker)
+        public ExportForm(IFileWorker worker, IFileWorker propertyWorker, Form1 form)
         {
             InitializeComponent();
             this.worker = worker;
             this.propertyWorker = propertyWorker;
             ObservingTimer.Start();
+            xRecSize.Text = (form.sizeX - form.offsetX + 1) + "";
+            yRecSize.Text = (form.sizeY - form.offsetY + 1) + "";
+            zRecSize.Text = (form.sizeZ - form.offsetZ + 1) + "";
+            xRecOffset.Text = form.offsetX + "";
+            yRecOffset.Text = form.offsetY + "";
+            zRecOffset.Text = form.offsetZ + "";
+            xRecStep.Text = "1";
+            yRecStep.Text = "1";
+            zRecStep.Text = "1";
+            recMethod.SelectedIndex = 0;
         }
 
         private void ObservingTimer_Tick(object sender, EventArgs e)
@@ -84,9 +95,11 @@ namespace DiplomaV2._0
             catch (Exception ex) { rectStepZ = -1; }
             stepZ = rectStepZ;
 
+            method = recMethod.SelectedIndex;
+
             if ((sizeX != -1) && (sizeY != -1) && (sizeZ != -1) &&
                 (offsetX != -1) && (offsetY != -1) && (offsetZ != -1) &&
-                (stepX != -1) && (stepY != -1) && (stepZ != -1))
+                (stepX != -1) && (stepY != -1) && (stepZ != -1) && (method != -1))
             {
                 saveButton.Enabled = true;
             }
@@ -101,14 +114,9 @@ namespace DiplomaV2._0
             Close();
         }
 
-        private void standartButton_Click(object sender, EventArgs e)
-        {
-            writeToFile(null);
-        }
-
         private void saveButton_Click(object sender, EventArgs e)
         {
-            writeToFile(new int[] { sizeX, sizeY, sizeZ, offsetX, offsetY, offsetZ, stepX, stepY, stepZ });
+            writeToFile(new int[] { sizeX, sizeY, sizeZ, offsetX, offsetY, offsetZ, stepX, stepY, stepZ, method });
         }
 
         private void writeToFile(int[] parameters)

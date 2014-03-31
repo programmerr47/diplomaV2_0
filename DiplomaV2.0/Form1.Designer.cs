@@ -34,15 +34,14 @@
             this.LoadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьКакToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportVtkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calculationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.methodsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lagranghToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linearFunctionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.пространственныйМетодToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveCalcsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataBaseGridA = new System.Windows.Forms.DataGridView();
             this.aXColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -60,8 +59,10 @@
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.exportVtkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportFile = new System.Windows.Forms.SaveFileDialog();
+            this.hintLabel1 = new System.Windows.Forms.Label();
+            this.calculateButton = new System.Windows.Forms.Button();
+            this.keepResultsButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseGridA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseGridB)).BeginInit();
@@ -75,7 +76,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(731, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(729, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -121,6 +122,13 @@
             this.сохранитьКакToolStripMenuItem.Text = "Сохранить как...";
             this.сохранитьКакToolStripMenuItem.Click += new System.EventHandler(this.сохранитьКакToolStripMenuItem_Click);
             // 
+            // exportVtkToolStripMenuItem
+            // 
+            this.exportVtkToolStripMenuItem.Name = "exportVtkToolStripMenuItem";
+            this.exportVtkToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.exportVtkToolStripMenuItem.Text = "Экспорт в vtk";
+            this.exportVtkToolStripMenuItem.Click += new System.EventHandler(this.exportVtkToolStripMenuItem_Click);
+            // 
             // настройкиToolStripMenuItem
             // 
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
@@ -138,8 +146,7 @@
             // 
             this.calculationsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.methodsToolStripMenuItem,
-            this.calcToolStripMenuItem,
-            this.saveCalcsToolStripMenuItem});
+            this.calcToolStripMenuItem});
             this.calculationsToolStripMenuItem.Name = "calculationsToolStripMenuItem";
             this.calculationsToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
             this.calculationsToolStripMenuItem.Text = "Вычисления";
@@ -148,10 +155,9 @@
             // 
             this.methodsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lagranghToolStripMenuItem,
-            this.linearFunctionsToolStripMenuItem,
-            this.пространственныйМетодToolStripMenuItem});
+            this.linearFunctionsToolStripMenuItem});
             this.methodsToolStripMenuItem.Name = "methodsToolStripMenuItem";
-            this.methodsToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.methodsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.methodsToolStripMenuItem.Text = "Метод вычисления";
             // 
             // lagranghToolStripMenuItem
@@ -168,25 +174,12 @@
             this.linearFunctionsToolStripMenuItem.Text = "Кусочно-линейные функции";
             this.linearFunctionsToolStripMenuItem.Click += new System.EventHandler(this.linearFunctionsToolStripMenuItem_Click);
             // 
-            // пространственныйМетодToolStripMenuItem
-            // 
-            this.пространственныйМетодToolStripMenuItem.Name = "пространственныйМетодToolStripMenuItem";
-            this.пространственныйМетодToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
-            this.пространственныйМетодToolStripMenuItem.Text = "Пространственный метод";
-            // 
             // calcToolStripMenuItem
             // 
             this.calcToolStripMenuItem.Name = "calcToolStripMenuItem";
-            this.calcToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.calcToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.calcToolStripMenuItem.Text = "Вычислить";
             this.calcToolStripMenuItem.Click += new System.EventHandler(this.calcToolStripMenuItem_Click);
-            // 
-            // saveCalcsToolStripMenuItem
-            // 
-            this.saveCalcsToolStripMenuItem.Name = "saveCalcsToolStripMenuItem";
-            this.saveCalcsToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
-            this.saveCalcsToolStripMenuItem.Text = "Сохранить вычисления";
-            this.saveCalcsToolStripMenuItem.Click += new System.EventHandler(this.saveCalcsToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -205,9 +198,9 @@
             this.aXIndColumnt,
             this.aYIndColumn,
             this.aZIndColumn});
-            this.dataBaseGridA.Location = new System.Drawing.Point(0, 27);
+            this.dataBaseGridA.Location = new System.Drawing.Point(0, 44);
             this.dataBaseGridA.Name = "dataBaseGridA";
-            this.dataBaseGridA.Size = new System.Drawing.Size(365, 481);
+            this.dataBaseGridA.Size = new System.Drawing.Size(365, 464);
             this.dataBaseGridA.TabIndex = 1;
             // 
             // aXColumn
@@ -261,9 +254,9 @@
             this.dataGridViewTextBoxColumn10,
             this.dataGridViewTextBoxColumn11,
             this.dataGridViewTextBoxColumn12});
-            this.dataBaseGridB.Location = new System.Drawing.Point(364, 27);
+            this.dataBaseGridB.Location = new System.Drawing.Point(364, 44);
             this.dataBaseGridB.Name = "dataBaseGridB";
-            this.dataBaseGridB.Size = new System.Drawing.Size(364, 481);
+            this.dataBaseGridB.Size = new System.Drawing.Size(364, 464);
             this.dataBaseGridB.TabIndex = 2;
             // 
             // dataGridViewTextBoxColumn7
@@ -303,18 +296,46 @@
             this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
             this.dataGridViewTextBoxColumn12.Width = 50;
             // 
-            // exportVtkToolStripMenuItem
+            // hintLabel1
             // 
-            this.exportVtkToolStripMenuItem.Name = "exportVtkToolStripMenuItem";
-            this.exportVtkToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
-            this.exportVtkToolStripMenuItem.Text = "Экспорт в vtk";
-            this.exportVtkToolStripMenuItem.Click += new System.EventHandler(this.exportVtkToolStripMenuItem_Click);
+            this.hintLabel1.AutoSize = true;
+            this.hintLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.hintLabel1.Location = new System.Drawing.Point(361, 24);
+            this.hintLabel1.Name = "hintLabel1";
+            this.hintLabel1.Size = new System.Drawing.Size(310, 17);
+            this.hintLabel1.TabIndex = 3;
+            this.hintLabel1.Text = "Нажмите на пустую ячейку и введите данные";
+            // 
+            // calculateButton
+            // 
+            this.calculateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.calculateButton.Location = new System.Drawing.Point(191, 514);
+            this.calculateButton.Name = "calculateButton";
+            this.calculateButton.Size = new System.Drawing.Size(174, 42);
+            this.calculateButton.TabIndex = 4;
+            this.calculateButton.Text = "Вычислить";
+            this.calculateButton.UseVisualStyleBackColor = true;
+            this.calculateButton.Click += new System.EventHandler(this.calculateButton_Click);
+            // 
+            // keepResultsButton
+            // 
+            this.keepResultsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.keepResultsButton.Location = new System.Drawing.Point(364, 514);
+            this.keepResultsButton.Name = "keepResultsButton";
+            this.keepResultsButton.Size = new System.Drawing.Size(174, 42);
+            this.keepResultsButton.TabIndex = 5;
+            this.keepResultsButton.Text = "Перенести результат";
+            this.keepResultsButton.UseVisualStyleBackColor = true;
+            this.keepResultsButton.Click += new System.EventHandler(this.keepResultsButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(731, 511);
+            this.ClientSize = new System.Drawing.Size(729, 557);
+            this.Controls.Add(this.keepResultsButton);
+            this.Controls.Add(this.calculateButton);
+            this.Controls.Add(this.hintLabel1);
             this.Controls.Add(this.dataBaseGridB);
             this.Controls.Add(this.dataBaseGridA);
             this.Controls.Add(this.menuStrip1);
@@ -322,6 +343,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseGridA)).EndInit();
@@ -356,7 +378,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn aYIndColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn aZIndColumn;
         private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveCalcsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьКакToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
@@ -364,9 +385,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
-        private System.Windows.Forms.ToolStripMenuItem пространственныйМетодToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportVtkToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog exportFile;
+        private System.Windows.Forms.Label hintLabel1;
+        private System.Windows.Forms.Button calculateButton;
+        private System.Windows.Forms.Button keepResultsButton;
 
     }
 }
