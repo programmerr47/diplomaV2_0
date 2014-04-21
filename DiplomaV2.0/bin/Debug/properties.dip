@@ -1,4 +1,4 @@
 decimalSeparator=.
-pathToFile=C:\Users\Mikl\documents\visual studio 2012\Projects\DiplomaV2.0\DiplomaV2.0\bin\Debug\One coil\testFieldThree.vtk
+pathToFile=C:\Users\Mikl\documents\visual studio 2012\Projects\DiplomaV2.0\DiplomaV2.0\bin\Debug\One coil\filedFourStepLagrange.vtk
 calculationMethod=LINEAR
 currentPathToParaview=C:\Program Files\ParaView 4.0.1\bin\paraview.exe

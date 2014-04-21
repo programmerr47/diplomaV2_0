@@ -34,8 +34,9 @@ namespace DiplomaV2._0
             IFileWorker worker;
             worker = FileFactory.createWorker(Utils.Formats.PROPERTY, this);
             worker.readFromFile();
-            worker = FileFactory.createWorker(Utils.Formats.CSV, this);
-            worker.readFromFile();
+            //worker = FileFactory.createWorker(Utils.Formats.CSV, this);
+            //worker.readFromFile();
+            this.Text = "Новый документ    -    Программа для расчета индукции";
 
             if (utils.Properties.currentCalculateMethod.Equals(Utils.Calcs.LINEAR))
             {
@@ -45,7 +46,6 @@ namespace DiplomaV2._0
             {
                 lagranghToolStripMenuItem.Checked = true;
             }
-            setFormText();
 
             if (!File.Exists(utils.Properties.currentPathToParaview))
             {

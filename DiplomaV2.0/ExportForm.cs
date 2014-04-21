@@ -29,6 +29,8 @@ namespace DiplomaV2._0
         IFileWorker worker;
         IFileWorker propertyWorker;
 
+        private Stopwatch stopwatch = new Stopwatch();
+
         public ExportForm(IFileWorker worker, IFileWorker propertyWorker, Form1 form)
         {
             InitializeComponent();
@@ -116,6 +118,7 @@ namespace DiplomaV2._0
 
         private void saveButton_Click(object sender, EventArgs e)
         {
+            stopwatch.Restart();
             writeToFile(new int[] { sizeX, sizeY, sizeZ, offsetX, offsetY, offsetZ, stepX, stepY, stepZ, method });
         }
 
@@ -123,8 +126,9 @@ namespace DiplomaV2._0
         {
             worker.parseFileName();
             worker.writeInFile(parameters);
+            stopwatch.Stop();
 
-            DialogResult d = MessageBox.Show("Экспорт завершен. Вы хотите посмотреть результаты в ParaView?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            DialogResult d = MessageBox.Show("Экспорт завершен за " + stopwatch.ElapsedMilliseconds / 1000.0 + " секунд. Вы хотите посмотреть результаты в ParaView?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
             if (d == DialogResult.Yes)
             {
