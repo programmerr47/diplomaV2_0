@@ -34,8 +34,6 @@ namespace DiplomaV2._0
             IFileWorker worker;
             worker = FileFactory.createWorker(Utils.Formats.PROPERTY, this);
             worker.readFromFile();
-            //worker = FileFactory.createWorker(Utils.Formats.CSV, this);
-            //worker.readFromFile();
             this.Text = "Новый документ    -    Программа для расчета индукции";
 
             if (utils.Properties.currentCalculateMethod.Equals(Utils.Calcs.LINEAR))
@@ -284,7 +282,7 @@ namespace DiplomaV2._0
             Utils.copyBtoA(dataBaseGridA, dataBaseGridB);
         }
 
-        private void Form1_SizeChanged(object sender, EventArgs e)
+        /*private void Form1_SizeChanged(object sender, EventArgs e)
         {
             const int FUCKIN_CONST = 30;
             const int INDENT = 3;
@@ -317,6 +315,6 @@ namespace DiplomaV2._0
                     column.Width += 20;
                 }
             }
-        }
+        }*/
     }
 }
