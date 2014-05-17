@@ -62,10 +62,12 @@
             this.exportFile = new System.Windows.Forms.SaveFileDialog();
             this.hintLabel1 = new System.Windows.Forms.Label();
             this.calculateButton = new System.Windows.Forms.Button();
-            this.keepResultsButton = new System.Windows.Forms.Button();
+            this.loadingIndicator = new System.Windows.Forms.PictureBox();
+            this.loadingLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseGridA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseGridB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loadingIndicator)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -309,31 +311,39 @@
             // calculateButton
             // 
             this.calculateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.calculateButton.Location = new System.Drawing.Point(191, 514);
+            this.calculateButton.Location = new System.Drawing.Point(364, 514);
             this.calculateButton.Name = "calculateButton";
-            this.calculateButton.Size = new System.Drawing.Size(174, 42);
+            this.calculateButton.Size = new System.Drawing.Size(117, 42);
             this.calculateButton.TabIndex = 4;
             this.calculateButton.Text = "Вычислить";
             this.calculateButton.UseVisualStyleBackColor = true;
             this.calculateButton.Click += new System.EventHandler(this.calculateButton_Click);
             // 
-            // keepResultsButton
+            // loadingIndicator
             // 
-            this.keepResultsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.keepResultsButton.Location = new System.Drawing.Point(364, 514);
-            this.keepResultsButton.Name = "keepResultsButton";
-            this.keepResultsButton.Size = new System.Drawing.Size(174, 42);
-            this.keepResultsButton.TabIndex = 5;
-            this.keepResultsButton.Text = "Перенести результат";
-            this.keepResultsButton.UseVisualStyleBackColor = true;
-            this.keepResultsButton.Click += new System.EventHandler(this.keepResultsButton_Click);
+            this.loadingIndicator.Location = new System.Drawing.Point(12, 528);
+            this.loadingIndicator.Name = "loadingIndicator";
+            this.loadingIndicator.Size = new System.Drawing.Size(100, 16);
+            this.loadingIndicator.TabIndex = 5;
+            this.loadingIndicator.TabStop = false;
+            // 
+            // loadingLabel
+            // 
+            this.loadingLabel.AutoSize = true;
+            this.loadingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.loadingLabel.Location = new System.Drawing.Point(118, 528);
+            this.loadingLabel.Name = "loadingLabel";
+            this.loadingLabel.Size = new System.Drawing.Size(165, 16);
+            this.loadingLabel.TabIndex = 6;
+            this.loadingLabel.Text = "Данные загружаются";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(729, 557);
-            this.Controls.Add(this.keepResultsButton);
+            this.Controls.Add(this.loadingLabel);
+            this.Controls.Add(this.loadingIndicator);
             this.Controls.Add(this.calculateButton);
             this.Controls.Add(this.hintLabel1);
             this.Controls.Add(this.dataBaseGridB);
@@ -343,11 +353,11 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            //this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseGridA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseGridB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loadingIndicator)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -389,7 +399,8 @@
         private System.Windows.Forms.SaveFileDialog exportFile;
         private System.Windows.Forms.Label hintLabel1;
         private System.Windows.Forms.Button calculateButton;
-        private System.Windows.Forms.Button keepResultsButton;
+        private System.Windows.Forms.PictureBox loadingIndicator;
+        private System.Windows.Forms.Label loadingLabel;
 
     }
 }

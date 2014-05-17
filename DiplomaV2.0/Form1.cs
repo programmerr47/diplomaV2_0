@@ -22,6 +22,7 @@ namespace DiplomaV2._0
         public int sizeY = 0;
         public int sizeZ = 0;
         public int offsetX = 0;
+
         public int offsetY = 0;
         public int offsetZ = 0;
 
@@ -38,6 +39,9 @@ namespace DiplomaV2._0
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
             openFile.InitialDirectory = Directory.GetCurrentDirectory();
             saveFile.InitialDirectory = Directory.GetCurrentDirectory();
+            loadingIndicator.Image = Properties.Resources.LoadingImage;
+            loadingIndicator.Visible = false;
+            loadingLabel.Visible = false;
 
             if (utils.Properties.currentCalculateMethod.Equals(Utils.Calcs.LINEAR))
             {
@@ -57,7 +61,7 @@ namespace DiplomaV2._0
                     openFile.Filter = null;
                     if (openFile.ShowDialog() == DialogResult.OK)
                     {
-                        if (System.IO.File.Exists(openFile.FileName))
+                        if (File.Exists(openFile.FileName))
                         {
                             utils.Properties.currentPathToParaview = openFile.FileName;
                         }
@@ -160,7 +164,7 @@ namespace DiplomaV2._0
                     IFileWorker worker;
                     worker = FileFactory.createWorker(Utils.Formats.CSV, this);
                     worker.parseFileName();
-                    worker.readFromFile();
+                    worker.readFromFileAsync();
                     setFormText();
                 }
             }
@@ -278,6 +282,18 @@ namespace DiplomaV2._0
         private void calculateButton_Click(object sender, EventArgs e)
         {
             calcToolStripMenuItem_Click(sender, e);
+        }
+
+        public void showLoadingBar()
+        {
+            loadingIndicator.Visible = true;
+            loadingLabel.Visible = true;
+        }
+
+        public void hideLoadingBar()
+        {
+            loadingIndicator.Visible = false;
+            loadingLabel.Visible = false;
         }
 
         private void keepResultsButton_Click(object sender, EventArgs e)

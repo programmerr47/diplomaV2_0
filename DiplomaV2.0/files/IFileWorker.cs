@@ -11,5 +11,6 @@ namespace DiplomaV2._0.files
         void parseFileName();
         void writeInFile(int[] parameters);
         void readFromFile();
+        void readFromFileAsync();
     }
 }

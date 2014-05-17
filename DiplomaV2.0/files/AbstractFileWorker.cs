@@ -1,4 +1,5 @@
-﻿using DiplomaV2._0.utils;
+﻿using System.Threading;
+using DiplomaV2._0.utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,5 +33,10 @@ namespace DiplomaV2._0.files
 
         public abstract void writeInFile(int[] parameters);
         public abstract void readFromFile();
+        public void readFromFileAsync()
+        {
+            Thread t1 = new Thread(readFromFile);
+            t1.Start();
+        }
     }
 }

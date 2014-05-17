@@ -1,4 +1,5 @@
-﻿using DiplomaV2._0.utils;
+﻿using System.Threading;
+using DiplomaV2._0.utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -46,14 +47,22 @@ namespace DiplomaV2._0.files
 
         public override void readFromFile()
         {
+            parentForm.Invoke(new ThreadStart(delegate
+            {
+                parentForm.showLoadingBar();
+            }));
+
             DataGridView dataA = parentForm.getDatabaseA();
             DataGridView dataB = parentForm.getDatabaseB();
             bool firstOffsetX = true;
             bool firstOffsetY = true;
             bool firstOffsetZ = true;
 
-            dataA.Rows.Clear();
-            dataB.Rows.Clear();
+            parentForm.Invoke(new ThreadStart(delegate
+            {
+                dataA.Rows.Clear();
+                dataB.Rows.Clear();
+            }));
             if ((utils.Properties.currentPathToFile != "-") && (Utils.getExtension(utils.Properties.currentPathToFile) != null) && (Utils.getExtension(utils.Properties.currentPathToFile).ToLower().Equals("csv")))
             {
                 try
@@ -72,10 +81,18 @@ namespace DiplomaV2._0.files
                             if (boolA)
                             {
                                 if (dataA.Rows.Count <= i + 1)
-                                    dataA.Rows.Add();
+                                {
+                                    parentForm.Invoke(new ThreadStart(delegate
+                                    {
+                                        dataA.Rows.Add(); 
+                                    }));
+                                }
                                 for (int j = 0; j < values.Length; j++)
                                 {
-                                    dataA.Rows[i].Cells[j].Value = values[j];
+                                    parentForm.Invoke(new ThreadStart(delegate
+                                    {
+                                        dataA.Rows[i].Cells[j].Value = values[j];
+                                    }));
                                     if (j < 3)
                                     {
                                         int value = Int32.Parse(values[j]);
@@ -121,10 +138,18 @@ namespace DiplomaV2._0.files
                             else
                             {
                                 if (dataB.Rows.Count == i + 1)
-                                    dataB.Rows.Add();
+                                {
+                                    parentForm.Invoke(new ThreadStart(delegate
+                                    {
+                                        dataB.Rows.Add();
+                                    }));
+                                }
                                 for (int j = 0; j < values.Length; j++)
                                 {
-                                    dataB.Rows[i].Cells[j].Value = values[j];
+                                    parentForm.Invoke(new ThreadStart(delegate
+                                    {
+                                        dataB.Rows[i].Cells[j].Value = values[j];
+                                    }));
                                     if (j < 3)
                                     {
                                         int value = Int32.Parse(values[j]);
@@ -187,6 +212,12 @@ namespace DiplomaV2._0.files
             {
                 writeErrorMessage();
             }
+
+            parentForm.Invoke(new ThreadStart(delegate
+            {
+                parentForm.hideLoadingBar();
+                DialogResult d = MessageBox.Show("Загрузка данных завершена.", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }));
         }
 
         private void writeErrorMessage()
