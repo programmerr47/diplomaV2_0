@@ -39,6 +39,7 @@ namespace DiplomaV2._0
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
             openFile.InitialDirectory = Directory.GetCurrentDirectory();
             saveFile.InitialDirectory = Directory.GetCurrentDirectory();
+            exportFile.InitialDirectory = Directory.GetCurrentDirectory();
             loadingIndicator.Image = Properties.Resources.LoadingImage;
             loadingIndicator.Visible = false;
             loadingLabel.Visible = false;
@@ -91,19 +92,27 @@ namespace DiplomaV2._0
 
         private void calcToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
+            if (dataBaseGridB.Rows.Count <= 1)
             {
-                CalculateProgressForm cpForm = new CalculateProgressForm(this);
-                this.Enabled = false;
-                cpForm.Show();
+                MessageBox.Show(
+                    "Нечего вычислять. Для начала введите координаты интересующих вас точек в таблицу справа.", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (DataBaseException ex)
+            else
             {
-                MessageBox.Show(ex.Message, "Warring", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Info", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                try
+                {
+                    CalculateProgressForm cpForm = new CalculateProgressForm(this);
+                    this.Enabled = false;
+                    cpForm.Show();
+                }
+                catch (DataBaseException ex)
+                {
+                    MessageBox.Show(ex.Message, "Warring", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Info", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

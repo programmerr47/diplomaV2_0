@@ -90,7 +90,6 @@ namespace DiplomaV2._0.utils
                     database.Rows[i].Cells[j + 3].Value = array[i, j].ToString().Replace(Constants.DECIMAL_SEPARATOR, Properties.currentDecimalSeparator);
                 }
 
-                while (sw.ElapsedMilliseconds < (20.0 * smallStep)) { }
                 sw.Reset();
 
                 Progress.getINSTANCE().addToProgress(smallStep);

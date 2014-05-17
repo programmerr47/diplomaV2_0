@@ -43,6 +43,11 @@ namespace DiplomaV2._0.files
             writeArrayInFile();
         }
 
+        public static Number[,,] iterpolate()
+        {
+            
+        }
+
         private void fillAnother()
         {
             for (int x = 0; x < result.GetLength(0); x++)

@@ -67,10 +67,6 @@ namespace DiplomaV2._0
                 Utils.toStrings(pForm.getDatabaseB(), Database.getINSTANCE().getBPointsInd());
 
                 Progress.getINSTANCE().addToProgress(100);
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
-                while (sw.ElapsedMilliseconds < 1000) { }
-                sw.Reset();
 
                 MessageBox.Show("Расчет необходимых данных закончен.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
