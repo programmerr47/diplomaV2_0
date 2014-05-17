@@ -35,6 +35,9 @@ namespace DiplomaV2._0
             worker = FileFactory.createWorker(Utils.Formats.PROPERTY, this);
             worker.readFromFile();
             this.Text = "Новый документ    -    Программа для расчета индукции";
+            Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+            openFile.InitialDirectory = Directory.GetCurrentDirectory();
+            saveFile.InitialDirectory = Directory.GetCurrentDirectory();
 
             if (utils.Properties.currentCalculateMethod.Equals(Utils.Calcs.LINEAR))
             {
