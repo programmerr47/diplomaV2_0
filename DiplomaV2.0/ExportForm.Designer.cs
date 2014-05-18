@@ -58,6 +58,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.recMethod = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.exportFile = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // label12
@@ -366,6 +367,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox recMethod;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.SaveFileDialog exportFile;
 
     }
 }

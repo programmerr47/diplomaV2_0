@@ -9,8 +9,10 @@ namespace DiplomaV2._0.files
     public interface IFileWorker
     {
         void parseFileName();
-        void writeInFile(int[] parameters);
+        void writeInFile();
         void readFromFile();
-        void readFromFileAsync();
+        void readFromFileAsync(OnOperationCompletedListener listener);
+        void writeInFileAsync(OnOperationCompletedListener listener);
+        void setParameters(int[] parameters);
     }
 }

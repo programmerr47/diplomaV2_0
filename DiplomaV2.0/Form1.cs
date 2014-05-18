@@ -6,11 +6,13 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using DiplomaV2._0.calculations;
 using DiplomaV2._0.exceptions;
+using DiplomaV2._0.exportCalculations;
 using DiplomaV2._0.utils;
 using DiplomaV2._0.files;
 
@@ -31,26 +33,44 @@ namespace DiplomaV2._0
             InitializeComponent();
             saveFile.Filter = Constants.fileFilter;
             openFile.Filter = Constants.fileFilter;
-            exportFile.Filter = Constants.exportFileFilter;
             IFileWorker worker;
             worker = FileFactory.createWorker(Utils.Formats.PROPERTY, this);
             worker.readFromFile();
-            this.Text = "Новый документ    -    Программа для расчета индукции";
+            this.Text = "Новый документ    -    DimplomaV2.0";
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
             openFile.InitialDirectory = Directory.GetCurrentDirectory();
             saveFile.InitialDirectory = Directory.GetCurrentDirectory();
-            exportFile.InitialDirectory = Directory.GetCurrentDirectory();
             loadingIndicator.Image = Properties.Resources.LoadingImage;
             loadingIndicator.Visible = false;
             loadingLabel.Visible = false;
 
-            if (utils.Properties.currentCalculateMethod.Equals(Utils.Calcs.LINEAR))
+            if (utils.Properties.currentCalculateMethod == ExportCalculationFactory.LINEAR_SPLINE)
             {
                 linearFunctionsToolStripMenuItem.Checked = true;
+                lagranghToolStripMenuItem.Checked = false;
+                lagrangePartToolStripMenuItem.Checked = false;
+                cubicSplineToolStripMenuItem.Checked = false;
             }
-            else
+            else if (utils.Properties.currentCalculateMethod == ExportCalculationFactory.LAGRANGE)
             {
+                linearFunctionsToolStripMenuItem.Checked = false;
                 lagranghToolStripMenuItem.Checked = true;
+                lagrangePartToolStripMenuItem.Checked = false;
+                cubicSplineToolStripMenuItem.Checked = false;
+            }
+            else if (utils.Properties.currentCalculateMethod == ExportCalculationFactory.SIMPLE_LAGRANGE)
+            {
+                linearFunctionsToolStripMenuItem.Checked = false;
+                lagranghToolStripMenuItem.Checked = false;
+                lagrangePartToolStripMenuItem.Checked = true;
+                cubicSplineToolStripMenuItem.Checked = false;
+            }
+            else if (utils.Properties.currentCalculateMethod == ExportCalculationFactory.CUBIC_SPLINE)
+            {
+                linearFunctionsToolStripMenuItem.Checked = false;
+                lagranghToolStripMenuItem.Checked = false;
+                lagrangePartToolStripMenuItem.Checked = false;
+                cubicSplineToolStripMenuItem.Checked = true;
             }
 
             if (!File.Exists(utils.Properties.currentPathToParaview))
@@ -76,18 +96,45 @@ namespace DiplomaV2._0
             }
         }
 
+        public Label getLoadingLabel()
+        {
+            return loadingLabel;
+        }
+
         private void lagranghToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            utils.Properties.currentCalculateMethod = Utils.Calcs.LAGRANGE;
+            utils.Properties.currentCalculateMethod = ExportCalculationFactory.LAGRANGE;
             lagranghToolStripMenuItem.Checked = true;
             linearFunctionsToolStripMenuItem.Checked = false;
+            lagrangePartToolStripMenuItem.Checked = false;
+            cubicSplineToolStripMenuItem.Checked = false;
         }
 
         private void linearFunctionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            utils.Properties.currentCalculateMethod = Utils.Calcs.LINEAR;
+            utils.Properties.currentCalculateMethod = ExportCalculationFactory.LINEAR_SPLINE;
             lagranghToolStripMenuItem.Checked = false;
             linearFunctionsToolStripMenuItem.Checked = true;
+            lagrangePartToolStripMenuItem.Checked = false;
+            cubicSplineToolStripMenuItem.Checked = false;
+        }
+
+        private void cubicSplineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            utils.Properties.currentCalculateMethod = ExportCalculationFactory.CUBIC_SPLINE;
+            lagranghToolStripMenuItem.Checked = false;
+            linearFunctionsToolStripMenuItem.Checked = false;
+            lagrangePartToolStripMenuItem.Checked = false;
+            cubicSplineToolStripMenuItem.Checked = true;
+        }
+
+        private void lagrangePartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            utils.Properties.currentCalculateMethod = ExportCalculationFactory.SIMPLE_LAGRANGE;
+            lagranghToolStripMenuItem.Checked = false;
+            linearFunctionsToolStripMenuItem.Checked = false;
+            lagrangePartToolStripMenuItem.Checked = true;
+            cubicSplineToolStripMenuItem.Checked = false;
         }
 
         private void calcToolStripMenuItem_Click(object sender, EventArgs e)
@@ -99,21 +146,33 @@ namespace DiplomaV2._0
             }
             else
             {
-                try
-                {
-                    CalculateProgressForm cpForm = new CalculateProgressForm(this);
-                    this.Enabled = false;
-                    cpForm.Show();
-                }
-                catch (DataBaseException ex)
-                {
-                    MessageBox.Show(ex.Message, "Warring", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Info", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                Thread t1 = new Thread(calculate);
+                t1.Start();
             }
+        }
+
+        private void calculate()
+        {
+            string labelText = loadingLabel.Text;
+
+            Invoke(new ThreadStart(delegate
+            {
+                loadingLabel.Text = "Данные вычисляются";
+                showLoadingBar();
+            }));
+
+            Number[,,] result = VTKFileWorker.iterpolate(dataBaseGridA, utils.Properties.currentCalculateMethod);
+            int originX = VTKFileWorker.getOriginX();
+            int originY = VTKFileWorker.getOriginY();
+            int originZ = VTKFileWorker.getOriginZ();
+            Utils.writeInterpolatedDataToB(result, dataBaseGridB, originX, originY, originZ, this);
+
+            Invoke(new ThreadStart(delegate
+            {
+                hideLoadingBar();
+                loadingLabel.Text = labelText;
+                MessageBox.Show("Расчет данных окончен!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }));
         }
 
         public DataGridView getDatabaseA()
@@ -149,7 +208,7 @@ namespace DiplomaV2._0
 
             IFileWorker worker;
             worker = FileFactory.createWorker(Utils.Formats.PROPERTY, this);
-            worker.writeInFile(null);
+            worker.writeInFile();
         }
 
         private void LoadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -167,13 +226,13 @@ namespace DiplomaV2._0
             openFile.FileName = null;
             if (openFile.ShowDialog() == DialogResult.OK)
             {
-                if (System.IO.File.Exists(openFile.FileName))
+                if (File.Exists(openFile.FileName))
                 {
                     utils.Properties.currentPathToFile = openFile.FileName;
                     IFileWorker worker;
                     worker = FileFactory.createWorker(Utils.Formats.CSV, this);
                     worker.parseFileName();
-                    worker.readFromFileAsync();
+                    worker.readFromFileAsync(null);
                     setFormText();
                 }
             }
@@ -206,7 +265,7 @@ namespace DiplomaV2._0
                 }
             }
 
-            worker.writeInFile(null);
+            worker.writeInFile();
         }
 
         private void сохранитьКакToolStripMenuItem_Click(object sender, EventArgs e)
@@ -219,7 +278,7 @@ namespace DiplomaV2._0
             {
                 utils.Properties.currentPathToFile = saveFile.FileName;
                 worker.parseFileName();
-                worker.writeInFile(null);
+                worker.writeInFile();
                 setFormText();
             }
         }
@@ -227,9 +286,9 @@ namespace DiplomaV2._0
         private void setFormText()
         {
             if (utils.Properties.currentFileName == "-")
-                this.Text = "Новый документ    -    Программа для расчета индукции";
+                this.Text = "Новый документ    -    DimplomaV2.0";
             else
-                this.Text = utils.Properties.currentFileName + "    -    " + "Программа для расчета индукции";
+                this.Text = utils.Properties.currentFileName + "    -    " + "DimplomaV2.0";
         }
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -270,22 +329,8 @@ namespace DiplomaV2._0
 
         private void exportVtkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                Directory.SetCurrentDirectory(utils.Properties.currentDirectory);
-            }
-            catch (Exception ex)
-            {
-            }
-
-            if (exportFile.ShowDialog() == DialogResult.OK)
-            {
-                IFileWorker worker = FileFactory.createWorker(Utils.Formats.VTK, this);
-                IFileWorker propertyWorker = FileFactory.createWorker(Utils.Formats.PROPERTY, this);
-                utils.Properties.currentPathToFile = exportFile.FileName;
-                ExportForm exportForm = new ExportForm(worker, propertyWorker, this);
-                exportForm.Show();
-            }
+            ExportForm exportForm = new ExportForm(this);
+            exportForm.Show();
         }
 
         private void calculateButton_Click(object sender, EventArgs e)

@@ -28,7 +28,7 @@ namespace DiplomaV2._0
         {
             InitializeComponent();
             pForm = sender;
-            calc = CalculationFactory.createCalculation(utils.Properties.currentCalculateMethod);
+            //calc = CalculationFactory.createCalculation(utils.Properties.currentCalculateMethod);
             forceClose = true;
 
             Progress.getINSTANCE().clearProgress();

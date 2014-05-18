@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DiplomaV2._0.exportCalculations;
 
 namespace DiplomaV2._0.utils
 {
@@ -15,7 +16,7 @@ namespace DiplomaV2._0.utils
         public static string directoryOfApp = Directory.GetCurrentDirectory() + "\\";
         public static string currentDirectory = Directory.GetCurrentDirectory() + "\\";
         public static string currentPathToFile = currentDirectory + currentFileName;
-        public static Utils.Calcs currentCalculateMethod = Utils.Calcs.LAGRANGE;
+        public static int currentCalculateMethod = ExportCalculationFactory.LINEAR_SPLINE;
         public static string currentPathToParaview = "C:\\Program Files\\ParaView 4.0.1\\paraview.exe";
     }
 }

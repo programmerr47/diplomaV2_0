@@ -11,6 +11,8 @@ namespace DiplomaV2._0.files
     public abstract class AbstractFileWorker : IFileWorker
     {
         protected Form1 parentForm;
+        protected int[] parameters;
+        protected OnOperationCompletedListener listener;
 
         public AbstractFileWorker(Form1 parentForm)
         {
@@ -31,12 +33,26 @@ namespace DiplomaV2._0.files
             utils.Properties.currentDirectory = path.Substring(0, index);
         }
 
-        public abstract void writeInFile(int[] parameters);
+        public abstract void writeInFile();
         public abstract void readFromFile();
-        public void readFromFileAsync()
+
+        public void readFromFileAsync(OnOperationCompletedListener listener)
         {
+            this.listener = listener;
             Thread t1 = new Thread(readFromFile);
             t1.Start();
+        }
+
+        public void writeInFileAsync(OnOperationCompletedListener listener)
+        {
+            this.listener = listener;
+            Thread t1 = new Thread(writeInFile);
+            t1.Start();
+        }
+
+        public void setParameters(int[] parameters)
+        {
+            this.parameters = parameters;
         }
     }
 }

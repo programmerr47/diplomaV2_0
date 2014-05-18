@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DiplomaV2._0.utils
 {
-    class Number
+    public class Number
     {
         public Number(double x, double y, double z)
         {

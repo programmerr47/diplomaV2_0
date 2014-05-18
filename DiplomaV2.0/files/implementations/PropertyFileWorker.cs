@@ -1,4 +1,5 @@
-﻿using DiplomaV2._0.utils;
+﻿using DiplomaV2._0.exportCalculations;
+using DiplomaV2._0.utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +13,7 @@ namespace DiplomaV2._0.files
     {
         public PropertyFileWorker(Form1 pf) : base(pf) { }
 
-        public override void writeInFile(int[] parameters)
+        public override void writeInFile()
         {
             StreamWriter streamWriter = File.CreateText(utils.Properties.directoryOfApp + utils.Properties.currentNamePropertyFile);
             streamWriter.WriteLine("decimalSeparator=" + utils.Properties.currentDecimalSeparator + "");
@@ -53,11 +54,11 @@ namespace DiplomaV2._0.files
                             {
                                 try
                                 {
-                                    utils.Properties.currentCalculateMethod = (Utils.Calcs)Enum.Parse(typeof(Utils.Calcs), comms[1], true);
+                                    utils.Properties.currentCalculateMethod = Int32.Parse(comms[1]);
                                 }
-                                catch (ArgumentException ex)
+                                catch (FormatException e)
                                 {
-                                    utils.Properties.currentCalculateMethod = Utils.Calcs.LAGRANGE;
+                                    utils.Properties.currentCalculateMethod = ExportCalculationFactory.LINEAR_SPLINE;
                                 }
                                 break;
                             }
@@ -72,7 +73,7 @@ namespace DiplomaV2._0.files
             }
             catch (FileNotFoundException ex)
             {
-                writeInFile(null);
+                writeInFile();
             }
         }
     }

@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace DiplomaV2._0
 {
-    public partial class ExportForm : Form
+    public partial class ExportForm : Form, OnOperationCompletedListener
     {
         int sizeX = -1;
         int sizeY = -1;
@@ -28,14 +28,14 @@ namespace DiplomaV2._0
         int method = -1;
         IFileWorker worker;
         IFileWorker propertyWorker;
+        private bool performingCalculations = false;
+        private Form1 form;
 
         private Stopwatch stopwatch = new Stopwatch();
 
-        public ExportForm(IFileWorker worker, IFileWorker propertyWorker, Form1 form)
+        public ExportForm(Form1 form)
         {
             InitializeComponent();
-            this.worker = worker;
-            this.propertyWorker = propertyWorker;
             ObservingTimer.Start();
             xRecSize.Text = (form.sizeX - form.offsetX + 1) + "";
             yRecSize.Text = (form.sizeY - form.offsetY + 1) + "";
@@ -47,67 +47,73 @@ namespace DiplomaV2._0
             yRecStep.Text = "1";
             zRecStep.Text = "1";
             recMethod.SelectedIndex = 0;
+            this.form = form;
+            exportFile.Filter = Constants.exportFileFilter;
+            exportFile.InitialDirectory = Directory.GetCurrentDirectory();
         }
 
         private void ObservingTimer_Tick(object sender, EventArgs e)
         {
 
-            int rectSizeX = -1;
-            try { rectSizeX = Int32.Parse(xRecSize.Text); }
-            catch (Exception ex) { rectSizeX = -1; }
-            sizeX = rectSizeX;
-
-            int rectSizeY = -1;
-            try { rectSizeY = Int32.Parse(yRecSize.Text); }
-            catch (Exception ex) { rectSizeY = -1; }
-            sizeY = rectSizeY;
-
-            int rectSizeZ = -1;
-            try { rectSizeZ = Int32.Parse(zRecSize.Text); }
-            catch (Exception ex) { rectSizeZ = -1; }
-            sizeZ = rectSizeZ;
-
-            int rectBeginX = -1;
-            try { rectBeginX = Int32.Parse(xRecOffset.Text); }
-            catch (Exception ex) { rectBeginX = -1; }
-            offsetX = rectBeginX;
-
-            int rectBeginY = -1;
-            try { rectBeginY = Int32.Parse(yRecOffset.Text); }
-            catch (Exception ex) { rectBeginY = -1; }
-            offsetY = rectBeginY;
-
-            int rectBeginZ = -1;
-            try { rectBeginZ = Int32.Parse(zRecOffset.Text); }
-            catch (Exception ex) { rectBeginZ = -1; }
-            offsetZ = rectBeginZ;
-
-            int rectStepX = -1;
-            try { rectStepX = Int32.Parse(xRecStep.Text); }
-            catch (Exception ex) { rectStepX = -1; }
-            stepX = rectStepX;
-
-            int rectStepY = -1;
-            try { rectStepY = Int32.Parse(yRecStep.Text); }
-            catch (Exception ex) { rectStepY = -1; }
-            stepY = rectStepY;
-
-            int rectStepZ = -1;
-            try { rectStepZ = Int32.Parse(zRecStep.Text); }
-            catch (Exception ex) { rectStepZ = -1; }
-            stepZ = rectStepZ;
-
-            method = recMethod.SelectedIndex;
-
-            if ((sizeX != -1) && (sizeY != -1) && (sizeZ != -1) &&
-                (offsetX != -1) && (offsetY != -1) && (offsetZ != -1) &&
-                (stepX != -1) && (stepY != -1) && (stepZ != -1) && (method != -1))
+            if (!performingCalculations)
             {
-                saveButton.Enabled = true;
-            }
-            else
-            {
-                saveButton.Enabled = false;
+                int rectSizeX = -1;
+                try { rectSizeX = Int32.Parse(xRecSize.Text); }
+                catch (Exception ex) { rectSizeX = -1; }
+                sizeX = rectSizeX;
+
+                int rectSizeY = -1;
+                try { rectSizeY = Int32.Parse(yRecSize.Text); }
+                catch (Exception ex) { rectSizeY = -1; }
+                sizeY = rectSizeY;
+
+                int rectSizeZ = -1;
+                try { rectSizeZ = Int32.Parse(zRecSize.Text); }
+                catch (Exception ex) { rectSizeZ = -1; }
+                sizeZ = rectSizeZ;
+
+                int rectBeginX = -1;
+                try { rectBeginX = Int32.Parse(xRecOffset.Text); }
+                catch (Exception ex) { rectBeginX = -1; }
+                offsetX = rectBeginX;
+
+                int rectBeginY = -1;
+                try { rectBeginY = Int32.Parse(yRecOffset.Text); }
+                catch (Exception ex) { rectBeginY = -1; }
+                offsetY = rectBeginY;
+
+                int rectBeginZ = -1;
+                try { rectBeginZ = Int32.Parse(zRecOffset.Text); }
+                catch (Exception ex) { rectBeginZ = -1; }
+                offsetZ = rectBeginZ;
+
+                int rectStepX = -1;
+                try { rectStepX = Int32.Parse(xRecStep.Text); }
+                catch (Exception ex) { rectStepX = -1; }
+                stepX = rectStepX;
+
+                int rectStepY = -1;
+                try { rectStepY = Int32.Parse(yRecStep.Text); }
+                catch (Exception ex) { rectStepY = -1; }
+                stepY = rectStepY;
+
+                int rectStepZ = -1;
+                try { rectStepZ = Int32.Parse(zRecStep.Text); }
+                catch (Exception ex) { rectStepZ = -1; }
+                stepZ = rectStepZ;
+
+                method = recMethod.SelectedIndex;
+
+                if ((sizeX != -1) && (sizeY != -1) && (sizeZ != -1) &&
+                    (offsetX != -1) && (offsetY != -1) && (offsetZ != -1) &&
+                    (stepX != -1) && (stepY != -1) && (stepZ != -1) && (method != -1))
+                {
+                    saveButton.Enabled = true;
+                }
+                else
+                {
+                    saveButton.Enabled = false;
+                }
             }
         }
 
@@ -118,15 +124,40 @@ namespace DiplomaV2._0
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            stopwatch.Restart();
-            writeToFile(new int[] { sizeX, sizeY, sizeZ, offsetX, offsetY, offsetZ, stepX, stepY, stepZ, method });
+            try
+            {
+                Directory.SetCurrentDirectory(utils.Properties.currentDirectory);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            if (exportFile.ShowDialog() == DialogResult.OK)
+            {
+                worker = FileFactory.createWorker(Utils.Formats.VTK, form);
+                propertyWorker = FileFactory.createWorker(Utils.Formats.PROPERTY, form);
+                utils.Properties.currentPathToFile = exportFile.FileName;
+                performingCalculations = true;
+                saveButton.Enabled = false;
+                cancelButton.Enabled = false;
+                stopwatch.Restart();
+                writeToFile(new int[] { sizeX, sizeY, sizeZ, offsetX, offsetY, offsetZ, stepX, stepY, stepZ, method });
+            }
         }
 
         private void writeToFile(int[] parameters)
         {
             worker.parseFileName();
-            worker.writeInFile(parameters);
+            worker.setParameters(parameters);
+            worker.writeInFileAsync(this);
+        }
+
+        public void onComplete()
+        {
             stopwatch.Stop();
+            performingCalculations = false;
+            saveButton.Enabled = true;
+            cancelButton.Enabled = true;
 
             DialogResult d = MessageBox.Show("Экспорт завершен за " + stopwatch.ElapsedMilliseconds / 1000.0 + " секунд. Вы хотите посмотреть результаты в ParaView?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
@@ -136,19 +167,25 @@ namespace DiplomaV2._0
                 {
                     DialogResult d2 = MessageBox.Show("Последний указанный путь к Paraview недействителен. Хотите ли вы указать новый путь до Paraview?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
-                    if (d == DialogResult.Yes)
+                    if (d2 == DialogResult.Yes)
                     {
                         if (openFile.ShowDialog() == DialogResult.OK)
                         {
                             if (System.IO.File.Exists(openFile.FileName))
                             {
-                                utils.Properties.currentPathToParaview = openFile.FileName; 
-                                propertyWorker.writeInFile(null);
+                                utils.Properties.currentPathToParaview = openFile.FileName;
+                                propertyWorker.writeInFile();
                             }
                         }
+                        else
+                        {
+                            Close();
+                            return;
+                        }
                     }
-                    else if (d == DialogResult.No)
+                    else if (d2 == DialogResult.No)
                     {
+                        Close();
                         return;
                     }
                 }
@@ -159,10 +196,11 @@ namespace DiplomaV2._0
                 infoStartProcess.FileName = utils.Properties.currentPathToParaview;
 
                 Process.Start(infoStartProcess);
+                Close();
             }
             else if (d == DialogResult.No)
             {
-                return;
+                Close();
             }
         }
     }
