@@ -143,6 +143,11 @@ namespace DiplomaV2._0
             {
                 MessageBox.Show(
                     "Нечего вычислять. Для начала введите координаты интересующих вас точек в таблицу справа.", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            } 
+            else if (dataBaseGridA.Rows.Count <= 1)
+            {
+                MessageBox.Show(
+                    "Нет начальных данных. Для начала введите координаты известных точек в таблицу слева или откройте уже сохраненые данные (Файл->Загрузить данные).", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {

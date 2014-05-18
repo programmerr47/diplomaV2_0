@@ -405,9 +405,29 @@ namespace DiplomaV2._0.files
                     {
                         result[x, y, z] = new Number(0, 0, 0);
                     }
-                    result[x, y, z].x = Convert.ToDouble(data.Rows[i].Cells[3].Value.ToString().Replace(DiplomaV2._0.utils.Properties.currentDecimalSeparator, Constants.DECIMAL_SEPARATOR));
-                    result[x, y, z].y = Convert.ToDouble(data.Rows[i].Cells[4].Value.ToString().Replace(DiplomaV2._0.utils.Properties.currentDecimalSeparator, Constants.DECIMAL_SEPARATOR));
-                    result[x, y, z].z = Convert.ToDouble(data.Rows[i].Cells[5].Value.ToString().Replace(DiplomaV2._0.utils.Properties.currentDecimalSeparator, Constants.DECIMAL_SEPARATOR));
+
+                    try
+                    {
+                        result[x, y, z].x =
+                            Convert.ToDouble(
+                                data.Rows[i].Cells[3].Value.ToString()
+                                    .Replace(DiplomaV2._0.utils.Properties.currentDecimalSeparator,
+                                        Constants.DECIMAL_SEPARATOR));
+                        result[x, y, z].y =
+                            Convert.ToDouble(
+                                data.Rows[i].Cells[4].Value.ToString()
+                                    .Replace(DiplomaV2._0.utils.Properties.currentDecimalSeparator,
+                                        Constants.DECIMAL_SEPARATOR));
+                        result[x, y, z].z =
+                            Convert.ToDouble(
+                                data.Rows[i].Cells[5].Value.ToString()
+                                    .Replace(DiplomaV2._0.utils.Properties.currentDecimalSeparator,
+                                        Constants.DECIMAL_SEPARATOR));
+                    }
+                    catch (NullReferenceException e)
+                    {
+                        //ignored
+                    }
                 }
             }
         }

@@ -43,27 +43,26 @@
             this.lagrangePartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cubicSplineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataBaseGridA = new System.Windows.Forms.DataGridView();
-            this.openFile = new System.Windows.Forms.OpenFileDialog();
-            this.saveFile = new System.Windows.Forms.SaveFileDialog();
-            this.dataBaseGridB = new System.Windows.Forms.DataGridView();
-            this.hintLabel1 = new System.Windows.Forms.Label();
-            this.calculateButton = new System.Windows.Forms.Button();
-            this.loadingIndicator = new System.Windows.Forms.PictureBox();
-            this.loadingLabel = new System.Windows.Forms.Label();
             this.aXColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.aYColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.aZColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.aXIndColumnt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.aYIndColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.aZIndColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.openFile = new System.Windows.Forms.OpenFileDialog();
+            this.saveFile = new System.Windows.Forms.SaveFileDialog();
+            this.dataBaseGridB = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hintLabel1 = new System.Windows.Forms.Label();
+            this.calculateButton = new System.Windows.Forms.Button();
+            this.loadingIndicator = new System.Windows.Forms.PictureBox();
+            this.loadingLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseGridA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseGridB)).BeginInit();
@@ -74,8 +73,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.calculationsToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.calculationsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1327, 24);
@@ -192,13 +190,6 @@
             this.calcToolStripMenuItem.Text = "Вычислить";
             this.calcToolStripMenuItem.Click += new System.EventHandler(this.calcToolStripMenuItem_Click);
             // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
-            this.helpToolStripMenuItem.Text = "Помощь";
-            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
-            // 
             // dataBaseGridA
             // 
             this.dataBaseGridA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -213,6 +204,43 @@
             this.dataBaseGridA.Name = "dataBaseGridA";
             this.dataBaseGridA.Size = new System.Drawing.Size(665, 583);
             this.dataBaseGridA.TabIndex = 1;
+            // 
+            // aXColumn
+            // 
+            this.aXColumn.HeaderText = "Ax";
+            this.aXColumn.Name = "aXColumn";
+            this.aXColumn.Width = 50;
+            // 
+            // aYColumn
+            // 
+            this.aYColumn.HeaderText = "Ay";
+            this.aYColumn.Name = "aYColumn";
+            this.aYColumn.Width = 50;
+            // 
+            // aZColumn
+            // 
+            this.aZColumn.DividerWidth = 20;
+            this.aZColumn.HeaderText = "Az";
+            this.aZColumn.Name = "aZColumn";
+            this.aZColumn.Width = 70;
+            // 
+            // aXIndColumnt
+            // 
+            this.aXIndColumnt.HeaderText = "Ax Ind";
+            this.aXIndColumnt.Name = "aXIndColumnt";
+            this.aXIndColumnt.Width = 150;
+            // 
+            // aYIndColumn
+            // 
+            this.aYIndColumn.HeaderText = "Ay Ind";
+            this.aYIndColumn.Name = "aYIndColumn";
+            this.aYIndColumn.Width = 150;
+            // 
+            // aZIndColumn
+            // 
+            this.aZIndColumn.HeaderText = "Az Ind";
+            this.aZIndColumn.Name = "aZIndColumn";
+            this.aZIndColumn.Width = 150;
             // 
             // openFile
             // 
@@ -232,6 +260,43 @@
             this.dataBaseGridB.Name = "dataBaseGridB";
             this.dataBaseGridB.Size = new System.Drawing.Size(664, 583);
             this.dataBaseGridB.TabIndex = 2;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.HeaderText = "Bx";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.HeaderText = "By";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DividerWidth = 20;
+            this.dataGridViewTextBoxColumn9.HeaderText = "Bz";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.Width = 70;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.HeaderText = "Bx Ind";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.Width = 150;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.HeaderText = "By Ind";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.Width = 150;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.HeaderText = "Bz Ind";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.Width = 150;
             // 
             // hintLabel1
             // 
@@ -272,80 +337,6 @@
             this.loadingLabel.TabIndex = 6;
             this.loadingLabel.Text = "Данные загружаются";
             // 
-            // aXColumn
-            // 
-            this.aXColumn.HeaderText = "Ax";
-            this.aXColumn.Name = "aXColumn";
-            this.aXColumn.Width = 50;
-            // 
-            // aYColumn
-            // 
-            this.aYColumn.HeaderText = "Ay";
-            this.aYColumn.Name = "aYColumn";
-            this.aYColumn.Width = 50;
-            // 
-            // aZColumn
-            // 
-            this.aZColumn.DividerWidth = 20;
-            this.aZColumn.HeaderText = "Az";
-            this.aZColumn.Name = "aZColumn";
-            this.aZColumn.Width = 70;
-            // 
-            // aXIndColumnt
-            // 
-            this.aXIndColumnt.HeaderText = "Ax Ind";
-            this.aXIndColumnt.Name = "aXIndColumnt";
-            this.aXIndColumnt.Width = 150;
-            // 
-            // aYIndColumn
-            // 
-            this.aYIndColumn.HeaderText = "Ay Ind";
-            this.aYIndColumn.Name = "aYIndColumn";
-            this.aYIndColumn.Width = 150;
-            // 
-            // aZIndColumn
-            // 
-            this.aZIndColumn.HeaderText = "Az Ind";
-            this.aZIndColumn.Name = "aZIndColumn";
-            this.aZIndColumn.Width = 150;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.HeaderText = "Bx";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.HeaderText = "By";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.DividerWidth = 20;
-            this.dataGridViewTextBoxColumn9.HeaderText = "Bz";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.Width = 70;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.HeaderText = "Bx Ind";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.Width = 150;
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.HeaderText = "By Ind";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.Width = 150;
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.HeaderText = "Bz Ind";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            this.dataGridViewTextBoxColumn12.Width = 150;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -379,7 +370,6 @@
         private System.Windows.Forms.ToolStripMenuItem newFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem LoadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SaveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem calculationsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem methodsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem calcToolStripMenuItem;

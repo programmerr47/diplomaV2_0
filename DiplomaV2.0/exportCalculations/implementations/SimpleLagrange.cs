@@ -71,16 +71,9 @@ namespace DiplomaV2._0.exportCalculations.implementations
         {
             double result = 0.0;
 
-            if (aroundListOfKnown.Count > 1)
+            foreach (KeyValuePair<int, Number> num in aroundListOfKnown)
             {
-                foreach (KeyValuePair<int, Number> num in aroundListOfKnown)
-                {
-                    result += num.Value.getCoord(coord) * getInterpolatedProjectionPart(i, num.Key, aroundListOfKnown);
-                }
-            }
-            else
-            {
-                result = aroundListOfKnown.GetEnumerator().Current.Value.getCoord(coord);
+                result += num.Value.getCoord(coord) * getInterpolatedProjectionPart(i, num.Key, aroundListOfKnown);
             }
 
             return result;

@@ -29,32 +29,35 @@ namespace DiplomaV2._0.exportCalculations.implementations
             }
             splines[0].c = splines[n - 1].c = 0.0;
 
-            double[] alpha = new double[n - 1];
-            double[] beta = new double[n - 1];
-            alpha[0] = beta[0] = 0.0;
-            for (int i = 1; i < n - 1; ++i)
+            if (n > 1)
             {
-                double hi = x[i] - x[i - 1];
-                double hi1 = x[i + 1] - x[i];
-                double A = hi;
-                double C = 2.0 * (hi + hi1);
-                double B = hi1;
-                double F = 6.0 * ((y[i + 1] - y[i]) / hi1 - (y[i] - y[i - 1]) / hi);
-                double z = (A * alpha[i - 1] + C);
-                alpha[i] = -B / z;
-                beta[i] = (F - A * beta[i - 1]) / z;
-            }
+                double[] alpha = new double[n - 1];
+                double[] beta = new double[n - 1];
+                alpha[0] = beta[0] = 0.0;
+                for (int i = 1; i < n - 1; ++i)
+                {
+                    double hi = x[i] - x[i - 1];
+                    double hi1 = x[i + 1] - x[i];
+                    double A = hi;
+                    double C = 2.0 * (hi + hi1);
+                    double B = hi1;
+                    double F = 6.0 * ((y[i + 1] - y[i]) / hi1 - (y[i] - y[i - 1]) / hi);
+                    double z = (A * alpha[i - 1] + C);
+                    alpha[i] = -B / z;
+                    beta[i] = (F - A * beta[i - 1]) / z;
+                }
 
-            for (int i = n - 2; i > 0; --i)
-            {
-                splines[i].c = alpha[i] * splines[i + 1].c + beta[i];
-            }
+                for (int i = n - 2; i > 0; --i)
+                {
+                    splines[i].c = alpha[i] * splines[i + 1].c + beta[i];
+                }
 
-            for (int i = n - 1; i > 0; --i)
-            {
-                double hi = x[i] - x[i - 1];
-                splines[i].d = (splines[i].c - splines[i - 1].c) / hi;
-                splines[i].b = hi * (2.0 * splines[i].c + splines[i - 1].c) / 6.0 + (y[i] - y[i - 1]) / hi;
+                for (int i = n - 1; i > 0; --i)
+                {
+                    double hi = x[i] - x[i - 1];
+                    splines[i].d = (splines[i].c - splines[i - 1].c) / hi;
+                    splines[i].b = hi * (2.0 * splines[i].c + splines[i - 1].c) / 6.0 + (y[i] - y[i - 1]) / hi;
+                }
             }
 
             return splines;
